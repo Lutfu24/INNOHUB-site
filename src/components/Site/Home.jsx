@@ -2,6 +2,7 @@ import React from "react";
 import { Slider } from "./Slider";
 import Raiting from "./Raiting";
 import TeachersSection from "./TeachersSectionUpdated";
+import PartnersStories from "./PartnersStories";
 
 function Home() {
   return (
@@ -9,6 +10,7 @@ function Home() {
       <Slider />
       <Raiting />
       <TeachersSection />
+      <PartnersStories />
     </>
   );
 }
