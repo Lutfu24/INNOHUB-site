@@ -3,10 +3,8 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import logo from "../../assets/logo2.png";
 import {
@@ -19,6 +17,7 @@ import {
 } from "@/components/ui/menubar";
 import { BsInstagram } from "react-icons/bs";
 import { FaFacebookF, FaSearch } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
@@ -37,9 +36,11 @@ export default function Header() {
         </div>
       </header>
       <header className="flex items-center justify-around my-5">
-        <img src={logo} width={200} alt="img" />
+        <Link to="/">
+          <img src={logo} width={200} alt="img" className="cursor-pointer" />
+        </Link>
 
-        <NavigationMenu>
+        <NavigationMenu className="max-md:hidden">
           <NavigationMenuList className="flex-wrap font-bold">
             <NavigationMenuItem>Karyera məsləhəti</NavigationMenuItem>
             <NavigationMenuItem>
