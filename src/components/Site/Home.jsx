@@ -3,6 +3,7 @@ import Raiting from "./Raiting";
 import TeachersSection from "./TeachersSectionUpdated";
 import PartnersStories from "./PartnersStories";
 import FAQ from "./FAQ";
+import Advan from './Advan'
 
 function Home() {
   return (
@@ -11,6 +12,7 @@ function Home() {
       <Raiting />
       <TeachersSection />
       <PartnersStories />
+      <Advan/>
       <FAQ/>
     </>
   );
