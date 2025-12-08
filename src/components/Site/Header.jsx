@@ -18,6 +18,7 @@ import {
 import { BsInstagram } from "react-icons/bs";
 import { FaFacebookF, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { Link2 } from "lucide-react";
 
 export default function Header() {
   return (
@@ -82,7 +83,7 @@ export default function Header() {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem className="hidden md:block font-bold">
-              Blog
+              <Link to="/blog">Blog</Link>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -103,9 +104,12 @@ export default function Header() {
               </MenubarContent>
             </MenubarMenu>
           </Menubar>
-          <button className="rounded-3xl bg-[#02C8FE] text-white px-5 py-2">
+          <Link
+            to="/elaqe"
+            className="rounded-3xl bg-[#02C8FE] text-white px-5 py-2"
+          >
             Müraciət et
-          </button>
+          </Link>
         </div>
       </header>
     </>

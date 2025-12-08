@@ -118,10 +118,6 @@
     @apply bg-background text-foreground;
   }
 }
-
-.swiper-button-next svg,
-.swiper-button-prev svg {
-  border: 2px;
-  border-radius: 100%;
-  border-color: skyblue;
+body {
+  font-family: "Montserrat", sans-serif;
 }

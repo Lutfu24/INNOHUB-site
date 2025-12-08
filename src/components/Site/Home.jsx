@@ -1,6 +1,7 @@
 import { Slider } from "./Slider";
 import Raiting from "./Raiting";
 import TeachersSection from "./TeachersSectionUpdated";
+import PartnersStories from "./PartnersStories";
 import FAQ from "./FAQ";
 
 function Home() {
@@ -9,6 +10,7 @@ function Home() {
       <Slider />
       <Raiting />
       <TeachersSection />
+      <PartnersStories />
       <FAQ/>
     </>
   );
