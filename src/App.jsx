@@ -7,6 +7,8 @@ import Blog from "./components/Site/Blog";
 import Elaqe from "./components/Site/Elaqe";
 import Error from "./components/Site/Error";
 function App() {
+
+    // console.log("/sdsds")
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
