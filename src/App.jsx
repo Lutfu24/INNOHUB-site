@@ -15,6 +15,7 @@ function App() {
         <Route path="elaqe" element={<Elaqe />} />
       </Route>
 
+      {/* <Routes></Routes> */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<Dashboard />} />
       </Route>
