@@ -1,6 +1,5 @@
 import React from "react";
 
-// Placeholder data
 const STATS = [
   { id: 1, value: "900+", description: "tələbə" },
   { id: 2, value: "80%", description: "işlə təmin" },
@@ -9,7 +8,6 @@ const STATS = [
   { id: 5, value: "10+", description: "üzv" },
 ];
 
-// Animated Stat Card (innovasiya mavisi + hover + smooth)
 const StatCard = ({ value, description }) => (
   <div
     className="flex-shrink-0 w-52 p-6 rounded-2xl bg-white border border-cyan-200 shadow-sm
@@ -19,7 +17,6 @@ const StatCard = ({ value, description }) => (
     <h3 className="text-3xl font-bold text-gray-900 drop-shadow-sm">{value}</h3>
     <p className="text-gray-600 mt-1">{description}</p>
 
-    {/* Glow effekt */}
     <div className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-20 transition duration-300 bg-cyan-300 blur-xl" />
   </div>
 );
@@ -29,11 +26,9 @@ const StatsSection = () => {
     <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 overflow-hidden">
       <h2 className="text-3xl font-bold text-gray-900 mb-10">Niyə biz?</h2>
 
-      {/* Smooth Innovasiya Mavisi Background */}
       <div className="absolute top-0 right-0 h-full w-1/3 opacity-20 pointer-events-none
                       bg-gradient-to-b from-cyan-300 to-transparent blur-2xl" />
 
-      {/* Horizontal scroll cards */}
       <div className="flex space-x-6 overflow-x-auto pb-4 -mx-4 pl-4 scrollbar-hide">
         {STATS.map((item) => (
           <div key={item.id} className="relative">
