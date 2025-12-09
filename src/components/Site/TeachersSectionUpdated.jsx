@@ -23,9 +23,8 @@ const TeacherCard = ({ teacher }) => {
   const { name, subject, imageUrl } = teacher;
 
   return (
-    <div className="w-full sm:w-1/3 cursor-pointer transition-transform duration-300 hover:shadow-xl hover:-translate-y-1">
-      <div className="relative overflow-hidden rounded-2xl shadow-lg bg-cyan-50 aspect-[3/4]">
-        {/* Dekorativ Naxış */}
+    <div className="w-full sm:w-1/3 cursor-pointer transition-transform duration-300 hover:scale-105">
+      <div className="relative overflow-hidden rounded-[32px] shadow-lg bg-cyan-50 aspect-[3/4]">
         <div
           className="absolute inset-0 z-10 pointer-events-none"
           style={{
