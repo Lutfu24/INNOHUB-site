@@ -73,7 +73,7 @@ const FullstackPage = () => {
         {/* CTA */}
         <div className="text-center">
           <button className="bg-blue-600 text-white px-12 py-4 rounded-3xl text-lg font-semibold shadow-lg hover:bg-blue-700 hover:shadow-2xl active:scale-95 transition duration-150">
-            Qeydiyyatdan  Keç
+            Qeydiyyatdan   Keç
           </button>
         </div>
 
