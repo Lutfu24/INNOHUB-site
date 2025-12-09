@@ -9,7 +9,7 @@ function Home() {
       <Slider />
       <Raiting />
       <TeachersSection />
-      <Advan />
+      <Advan /> 
       <FAQ />
     </>
   );
