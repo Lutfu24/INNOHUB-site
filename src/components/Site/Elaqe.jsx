@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import svg from "../../assets/doodle.svg";
+import { ApplyCourse } from "../../services/homeService";
 
 function Elaqe() {
+  const [name, setName] = useState()
+  const [surName, setSurName] = useState()
+  const [email, setEmail] = useState()
+  const [phone, setPhone] = useState()
+
+  const data = {
+    ad:name,
+    soyad:surName,
+    mail:email,
+    telefon:phone
+  }
   return (
     <div className="grid max-w-screen-xl grid-cols-1 gap-8 px-8 py-16 mx-auto rounded-lg md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 dark:bg-gray-100 dark:text-gray-800">
       <div className="flex flex-col justify-between">
@@ -15,9 +27,23 @@ function Elaqe() {
       <form noValidate="" className="space-y-6">
         <div>
           <label htmlFor="name" className="text-sm">
-            Ad Soyad
+            Ad
           </label>
           <input
+            onInput={(e)=>setName(e.target.value)}
+            id="name"
+            type="text"
+            placeholder=""
+            className="w-full p-3 rounded dark:bg-gray-100"
+            fdprocessedid="1aqd9f"
+          />
+        </div>
+        <div>
+          <label htmlFor="name" className="text-sm">
+            Soyad
+          </label>
+          <input
+            onInput={(e)=>setSurName(e.target.value)}
             id="name"
             type="text"
             placeholder=""
@@ -30,6 +56,7 @@ function Elaqe() {
             Telefon
           </label>
           <input
+            onInput={(e)=>setPhone(e.target.value)}
             id="name"
             type="number"
             placeholder=""
@@ -42,13 +69,14 @@ function Elaqe() {
             Email
           </label>
           <input
+            onInput={(e)=>setEmail(e.target.value)}
             id="email"
             type="email"
             className="w-full p-3 rounded dark:bg-gray-100"
             fdprocessedid="p042p4"
           />
         </div>
-        <div>
+        {/* <div>
           <label htmlFor="message" className="text-sm">
             Mesaj
           </label>
@@ -57,8 +85,9 @@ function Elaqe() {
             rows="3"
             className="w-full p-3 rounded dark:bg-gray-100"
           ></textarea>
-        </div>
+        </div> */}
         <button
+          onClick={()=>ApplyCourse(data)}
           type="submit"
           className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-violet-600 dark:text-gray-50"
           fdprocessedid="nqt6sf"
