@@ -1,5 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { getCourses } from "../../services/homeServices";
 
 export default function EduSections() {
   const advantages = [
@@ -38,6 +38,13 @@ export default function EduSections() {
     { id: 5, title: "Backend", link: "web", icon: "/icons/backend.svg" },
   ];
 
+  async function showCourses() {
+    const courses = await getCourses();
+    console.log(courses);
+    fields.push(...courses);
+  }
+  showCourses();
+
   const testimonials = [
     { id: 1, img: "/users/u1.jpg" },
     { id: 2, img: "/users/u2.jpg" },
@@ -63,19 +70,20 @@ export default function EduSections() {
 
       <h2 className="text-2xl font-bold mb-4">Sahələr</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-12">
-        {fields.map((f) => (
-          <div
-            key={f.id}
-            className="border border-[#7EE5FF] rounded-3xl p-6 flex flex-col items-center justify-center"
-          >
-            <div className="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-white shadow-inner">
-              <img src={f.icon} alt="" className="w-10 h-10" />
+        {fields &&
+          fields.map((f) => (
+            <div
+              key={f.id}
+              className="border border-[#7EE5FF] rounded-3xl p-6 flex flex-col items-center justify-center"
+            >
+              <div className="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-white shadow-inner">
+                <img src={f.icon} alt="" className="w-10 h-10" />
+              </div>
+              <div className="font-semibold text-[#00C6FF] text-lg">
+                <Link to={f.link}>{f.title}</Link>
+              </div>
             </div>
-            <div className="font-semibold text-[#00C6FF] text-lg">
-              <Link to={f.link}>{f.title}</Link>
-            </div>
-          </div>
-        ))}
+          ))}
       </div>
 
       <h2 className="text-2xl font-bold mb-4">Rəylər</h2>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { getPartners } from "../../services/homeServices";
 
 const PARTNERS = [1, 2, 3, 4, 5];
 const STORIES = [1, 2, 3, 4];
@@ -9,6 +10,13 @@ const PartnersAndStoriesOnly = () => {
 
   const next = (i, arr) => (i < arr.length - 1 ? i + 1 : 0);
   const prev = (i, arr) => (i > 0 ? i - 1 : arr.length - 1);
+
+  async function showPartners() {
+    const partners = await getPartners();
+    console.log(partners);
+    // fields.push(...partners);
+  }
+  showPartners();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 relative">

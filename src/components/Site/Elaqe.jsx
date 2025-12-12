@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import svg from "../../assets/doodle.svg";
-import { ApplyCourse } from "../../services/homeServices";
+import { Contact } from "../../services/homeServices";
 import toast, { Toaster } from "react-hot-toast";
 
 function Elaqe() {
   const [student, setStudent] = useState({
-    ad: "",
-    soyad: "",
+    fullname: "",
     mail: "",
     telefon: 0,
+    mesaj: "",
   });
 
   function createStudent(e) {
@@ -28,25 +28,12 @@ function Elaqe() {
         <form noValidate="" className="space-y-6">
           <div>
             <label htmlFor="name" className="text-sm">
-              Ad
+              Ad Soyad
             </label>
             <input
               onInput={(e) => createStudent(e)}
               id="name"
-              name="ad"
-              type="text"
-              className="w-full p-3 rounded dark:bg-gray-100"
-              fdprocessedid="1aqd9f"
-            />
-          </div>
-          <div>
-            <label htmlFor="name" className="text-sm">
-              Soyad
-            </label>
-            <input
-              onInput={(e) => createStudent(e)}
-              id="name"
-              name="soyad"
+              name="fullname"
               type="text"
               className="w-full p-3 rounded dark:bg-gray-100"
               fdprocessedid="1aqd9f"
@@ -78,20 +65,21 @@ function Elaqe() {
               fdprocessedid="1aqd9f"
             />
           </div>
-
-          {/* <div>
-          <label htmlFor="message" className="text-sm">
-            Mesaj
-          </label>
-          <textarea
-            id="message"
-            rows="3"
-            className="w-full p-3 rounded dark:bg-gray-100"
-          ></textarea>
-        </div> */}
+          <div>
+            <label htmlFor="message" className="text-sm">
+              Mesaj
+            </label>
+            <textarea
+              id="message"
+              onInput={(e) => createStudent(e)}
+              name="mesaj"
+              rows="3"
+              className="w-full p-3 rounded dark:bg-gray-100"
+            ></textarea>
+          </div>
           <button
             onClick={() => {
-              ApplyCourse(student).then((res) => console.log(res.data));
+              Contact(student).then((res) => console.log(res));
               toast.success("muracietiniz qebul edildi!");
             }}
             type="button"
