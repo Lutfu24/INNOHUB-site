@@ -3,17 +3,17 @@ import Raiting from "./Raiting";
 import TeachersSection from "./TeachersSectionUpdated";
 import PartnersStories from "./PartnersStories";
 import FAQ from "./FAQ";
-import Advan from './Advan'
+import Advan from "./Advan";
 
 function Home() {
   return (
     <>
       <Slider />
       <Raiting />
+      <Advan />
       <TeachersSection />
       <PartnersStories />
-      <Advan/>
-      <FAQ/>
+      <FAQ />
     </>
   );
 }

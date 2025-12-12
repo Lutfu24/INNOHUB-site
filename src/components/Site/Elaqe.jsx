@@ -1,82 +1,85 @@
 import React, { useState } from "react";
 import svg from "../../assets/doodle.svg";
-import { ApplyCourse } from "../../services/homeService";
+import { ApplyCourse } from "../../services/homeServices";
+import toast, { Toaster } from "react-hot-toast";
 
 function Elaqe() {
-  const [name, setName] = useState()
-  const [surName, setSurName] = useState()
-  const [email, setEmail] = useState()
-  const [phone, setPhone] = useState()
+  const [student, setStudent] = useState({
+    ad: "",
+    soyad: "",
+    mail: "",
+    telefon: 0,
+  });
 
-  const data = {
-    ad:name,
-    soyad:surName,
-    mail:email,
-    telefon:phone
+  function createStudent(e) {
+    setStudent({ ...student, [e.target.name]: e.target.value });
   }
   return (
-    <div className="grid max-w-screen-xl grid-cols-1 gap-8 px-8 py-16 mx-auto rounded-lg md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 dark:bg-gray-100 dark:text-gray-800">
-      <div className="flex flex-col justify-between">
-        <div className="space-y-2">
-          <h2 className="text-4xl font-bold leading-tight lg:text-5xl">
-            GƏL DANIŞAQ!
-          </h2>
+    <>
+      <div className="grid max-w-screen-xl grid-cols-1 gap-8 px-8 py-16 mx-auto rounded-lg md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 dark:bg-gray-100 dark:text-gray-800">
+        <div className="flex flex-col justify-between">
+          <div className="space-y-2">
+            <h2 className="text-4xl font-bold leading-tight lg:text-5xl">
+              GƏL DANIŞAQ!
+            </h2>
+          </div>
+          <img src={svg} alt="svg" className="p-6 h-52 md:h-64" />
         </div>
-        <img src={svg} alt="svg" className="p-6 h-52 md:h-64" />
-      </div>
-      <form noValidate="" className="space-y-6">
-        <div>
-          <label htmlFor="name" className="text-sm">
-            Ad
-          </label>
-          <input
-            onInput={(e)=>setName(e.target.value)}
-            id="name"
-            type="text"
-            placeholder=""
-            className="w-full p-3 rounded dark:bg-gray-100"
-            fdprocessedid="1aqd9f"
-          />
-        </div>
-        <div>
-          <label htmlFor="name" className="text-sm">
-            Soyad
-          </label>
-          <input
-            onInput={(e)=>setSurName(e.target.value)}
-            id="name"
-            type="text"
-            placeholder=""
-            className="w-full p-3 rounded dark:bg-gray-100"
-            fdprocessedid="1aqd9f"
-          />
-        </div>
-        <div>
-          <label htmlFor="name" className="text-sm">
-            Telefon
-          </label>
-          <input
-            onInput={(e)=>setPhone(e.target.value)}
-            id="name"
-            type="number"
-            placeholder=""
-            className="w-full p-3 rounded dark:bg-gray-100"
-            fdprocessedid="1aqd9f"
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="text-sm">
-            Email
-          </label>
-          <input
-            onInput={(e)=>setEmail(e.target.value)}
-            id="email"
-            type="email"
-            className="w-full p-3 rounded dark:bg-gray-100"
-            fdprocessedid="p042p4"
-          />
-        </div>
-        {/* <div>
+        <form noValidate="" className="space-y-6">
+          <div>
+            <label htmlFor="name" className="text-sm">
+              Ad
+            </label>
+            <input
+              onInput={(e) => createStudent(e)}
+              id="name"
+              name="ad"
+              type="text"
+              className="w-full p-3 rounded dark:bg-gray-100"
+              fdprocessedid="1aqd9f"
+            />
+          </div>
+          <div>
+            <label htmlFor="name" className="text-sm">
+              Soyad
+            </label>
+            <input
+              onInput={(e) => createStudent(e)}
+              id="name"
+              name="soyad"
+              type="text"
+              className="w-full p-3 rounded dark:bg-gray-100"
+              fdprocessedid="1aqd9f"
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className="text-sm">
+              Email
+            </label>
+            <input
+              onInput={(e) => createStudent(e)}
+              id="email"
+              name="mail"
+              type="email"
+              className="w-full p-3 rounded dark:bg-gray-100"
+              fdprocessedid="p042p4"
+            />
+          </div>
+          <div>
+            <label htmlFor="name" className="text-sm">
+              Telefon
+            </label>
+            <input
+              onInput={(e) => createStudent(e)}
+              id="name"
+              name="telefon"
+              type="number"
+              className="w-full p-3 rounded dark:bg-gray-100"
+              fdprocessedid="1aqd9f"
+            />
+          </div>
+
+          {/* <div>
           <label htmlFor="message" className="text-sm">
             Mesaj
           </label>
@@ -86,16 +89,21 @@ function Elaqe() {
             className="w-full p-3 rounded dark:bg-gray-100"
           ></textarea>
         </div> */}
-        <button
-          onClick={()=>ApplyCourse(data)}
-          type="submit"
-          className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-violet-600 dark:text-gray-50"
-          fdprocessedid="nqt6sf"
-        >
-          Müraciət et!
-        </button>
-      </form>
-    </div>
+          <button
+            onClick={() => {
+              ApplyCourse(student).then((res) => console.log(res.data));
+              toast.success("muracietiniz qebul edildi!");
+            }}
+            type="button"
+            className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-violet-600 dark:text-gray-50"
+            fdprocessedid="nqt6sf"
+          >
+            Müraciət et!
+          </button>
+        </form>
+      </div>
+      <Toaster />
+    </>
   );
 }
 

@@ -1,4 +1,3 @@
-("use client");
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -18,9 +17,10 @@ import {
 import { BsInstagram } from "react-icons/bs";
 import { FaFacebookF, FaSearch } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Link2 } from "lucide-react";
+import { useMobile } from "@/hooks/use-mobile";
 
 export default function Header() {
+  const isMobile = useMobile();
   return (
     <>
       <header className="flex justify-center items-center">
@@ -41,7 +41,7 @@ export default function Header() {
           <img src={logo} width={200} alt="img" className="cursor-pointer" />
         </Link>
 
-        <NavigationMenu className="max-md:hidden">
+        <NavigationMenu viewport={isMobile} className="max-md:hidden z-999">
           <NavigationMenuList className="flex-wrap font-bold">
             <NavigationMenuItem>Karyera məsləhəti</NavigationMenuItem>
             <NavigationMenuItem>
@@ -49,9 +49,9 @@ export default function Header() {
                 Proqramlar
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid gap-2 sm:w-[200px] md:w-[200px] lg:w-[300px]">
-                  <li>Film klubu</li>
-                  <li>Ingilis dili danışıq klubu</li>
+                <ul className="grid gap-2 sm:w-[200px] md:w-[200px] lg:w-[300px] font-normal">
+                  <Link to="film">Film klubu</Link>
+                  <Link to="ingilisdili">Ingilis dili danışıq klubu</Link>
                   <li>Sosial tədbirlər</li>
                   <li>Könüllülük proqramları</li>
                 </ul>
@@ -62,8 +62,8 @@ export default function Header() {
                 Mərkəz
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[300px] gap-2">
-                  <li>Haqqımızda</li>
+                <ul className="grid w-[300px] gap-2 font-normal">
+                  <Link to="haqqimizda">Haqqımızda</Link>
                   <li>Vizyon və missiyamız</li>
                   <li>Vakansiyalar</li>
                   <li>Sosial məsuliyyət</li>
@@ -75,14 +75,14 @@ export default function Header() {
                 Fəaliyyətlər
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[200px] gap-2">
+                <ul className="grid w-[200px] gap-2 font-normal">
                   <li>Tədris sahələri</li>
                   <li>Təqaüd proqramları</li>
                   <li>Sahələr</li>
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
-            <NavigationMenuItem className="hidden md:block font-bold">
+            <NavigationMenuItem className="md:block font-bold">
               <Link to="/blog">Blog</Link>
             </NavigationMenuItem>
           </NavigationMenuList>
