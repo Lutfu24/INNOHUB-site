@@ -42,7 +42,7 @@ export default function Footer() {
     socials: [
       { type: "Facebook", href: "https://facebook.com" },
       { type: "Linkedin", href: "https://linkedin.com" },
-      { type: "Instagram", href: "https://instagram.com" },
+      { type: "Instagram", href: "https://instagram.com/innohub.az" },
       { type: "Music2", href: "https://tiktok.com" },
       { type: "Youtube", href: "https://youtube.com" },
     ],

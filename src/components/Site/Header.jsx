@@ -31,7 +31,9 @@ export default function Header() {
           </div>
           <div className="flex items-center gap-2">
             <span>innohub.az</span>
-            <BsInstagram />
+            <Link to="https://instagram.com/innohub.az">
+              <BsInstagram />
+            </Link>
             <FaFacebookF />
           </div>
         </div>
@@ -43,7 +45,9 @@ export default function Header() {
 
         <NavigationMenu viewport={isMobile} className="max-md:hidden z-999">
           <NavigationMenuList className="flex-wrap font-bold">
-            <NavigationMenuItem>Karyera məsləhəti</NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link to="karyera">Karyera məsləhəti</Link>
+            </NavigationMenuItem>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="font-bold">
                 Proqramlar

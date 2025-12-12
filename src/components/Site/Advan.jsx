@@ -17,7 +17,12 @@ export default function EduSections() {
       link: "",
       icon: "/icons/teacher.svg",
     },
-    { id: 5, title: "7/24 Açıq mərkəz", link: "", icon: "/icons/clock.svg" },
+    {
+      id: 5,
+      title: "7/24 Açıq mərkəz",
+      link: "haqqimizda",
+      icon: "/icons/clock.svg",
+    },
   ];
 
   const fields = [
@@ -56,15 +61,17 @@ export default function EduSections() {
       <h2 className="text-2xl font-bold mb-4">Üstünlüklərimiz</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
         {advantages.map((a) => (
-          <div
-            key={a.id}
-            className="bg-[#E8F9FF] rounded-3xl p-6 flex flex-col items-center justify-center text-center"
-          >
-            <img src={a.icon} alt="" className="w-12 h-12 mb-3 opacity-90" />
-            <div className="font-semibold text-[#008EAF] text-lg">
-              <Link to={a.link}>{a.title}</Link>
+          <Link to={a.link}>
+            <div
+              key={a.id}
+              className="bg-[#E8F9FF] rounded-3xl p-6 flex flex-col items-center justify-center text-center"
+            >
+              <img src={a.icon} alt="" className="w-12 h-12 mb-3 opacity-90" />
+              <div className="font-semibold text-[#008EAF] text-lg">
+                {a.title}
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -72,17 +79,19 @@ export default function EduSections() {
       <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-12">
         {fields &&
           fields.map((f) => (
-            <div
-              key={f.id}
-              className="border border-[#7EE5FF] rounded-3xl p-6 flex flex-col items-center justify-center"
-            >
-              <div className="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-white shadow-inner">
-                <img src={f.icon} alt="" className="w-10 h-10" />
+            <Link to={f.link}>
+              <div
+                key={f.id}
+                className="border border-[#7EE5FF] rounded-3xl p-6 flex flex-col items-center justify-center"
+              >
+                <div className="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-white shadow-inner">
+                  <img src={f.icon} alt="" className="w-10 h-10" />
+                </div>
+                <div className="font-semibold text-[#00C6FF] text-lg">
+                  {f.title}
+                </div>
               </div>
-              <div className="font-semibold text-[#00C6FF] text-lg">
-                <Link to={f.link}>{f.title}</Link>
-              </div>
-            </div>
+            </Link>
           ))}
       </div>
 
