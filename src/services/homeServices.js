@@ -1,51 +1,49 @@
 import axios from "axios";
 async function Contact(student) {
+  let res;
   try {
-    const res = await axios.post(
+    res = await axios.post(
       "https://api.innohub.alakbarova.site/api/contact",
       student
     );
     if (!res.data.length) throw new Error("data bosdur!");
-    return res;
   } catch (error) {
     console.error(error.message);
   }
+  return res;
 }
 
 async function getCourses() {
+  let res;
   try {
-    const res = await axios.get(
-      "https://api.innohub.alakbarova.site/api/courses"
-    );
-    if (!res.data.length) throw new Error("url xetasi!");
-    return res.data;
+    res = await axios.get("https://api.innohub.alakbarova.site/api/courses");
+    if (!res.data.length) throw new Error("data bosdur!");
   } catch (error) {
     console.log(error.message);
   }
+  return res.data;
 }
 
 async function getPartners() {
+  let res;
   try {
-    const res = await axios.get(
-      "https://api.innohub.alakbarova.site/api/partners"
-    );
-    if (!res.data.length) throw new Error("url xetasi!");
-    return res.data;
+    res = await axios.get("https://api.innohub.alakbarova.site/api/partners");
+    if (!res.data.length) throw new Error("data bosdur!");
   } catch (error) {
     console.log(error.message);
   }
+  return res.data;
 }
 
 async function getTeachers() {
+  let res;
   try {
-    const res = await axios.get(
-      "https://api.innohub.alakbarova.site/api/teachers"
-    );
-    if (!res.data.length) throw new Error("url xetasi!");
-    return res.data;
+    res = await axios.get("https://api.innohub.alakbarova.site/api/teachers");
+    if (!res.data.length) throw new Error("data bosdur!");
   } catch (error) {
     console.log(error.message);
   }
+  return res.data;
 }
 
 export { Contact, getCourses, getPartners, getTeachers };
