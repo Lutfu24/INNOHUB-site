@@ -5,6 +5,8 @@ import PartnersStories from "./PartnersStories";
 import FAQ from "./FAQ";
 import Advan from "./Advan";
 
+
+
 function Home() {
   return (
     <>
@@ -14,6 +16,7 @@ function Home() {
       <TeachersSection />
       <PartnersStories />
       <FAQ />
+  
     </>
   );
 }

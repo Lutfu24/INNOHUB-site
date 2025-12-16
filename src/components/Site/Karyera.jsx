@@ -31,13 +31,11 @@ export default function CareerPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white relative overflow-hidden font-sans">
-      {/* SVG overlay */}
       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="30%" cy="15%" r="300" fill="rgba(56, 189, 248, 0.2)" />
         <circle cx="70%" cy="85%" r="250" fill="rgba(96, 165, 250, 0.15)" />
       </svg>
 
-      {/* Header */}
       <header className="relative z-10 text-center py-28 px-4">
         <h1 className="text-5xl md:text-6xl font-extrabold text-indigo-700">Karyera Dəstəyi</h1>
         <p className="mt-4 text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
@@ -45,7 +43,6 @@ export default function CareerPage() {
         </p>
       </header>
 
-      {/* Form section */}
       <section className="relative z-10 max-w-4xl mx-auto p-8 md:p-12 bg-white rounded-3xl shadow-2xl -mt-20">
         <h2 className="text-3xl font-semibold text-indigo-700 mb-8 text-center">Qeydiyyat Formu</h2>
         <form onSubmit={handleSubmit} className="grid gap-6">
@@ -68,7 +65,6 @@ export default function CareerPage() {
         </form>
       </section>
 
-      {/* Info blocks */}
       <section className="relative z-10 mt-28 max-w-6xl mx-auto grid md:grid-cols-3 gap-10 px-6">
         {[
           { title: 'Fərdi Dəstək', desc: 'Sizin bacarıq və ehtiyaclarınıza uyğun fərdi məsləhət.' },
