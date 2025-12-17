@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getPartners } from "../../services/homeServices";
 
 const PARTNERS = [1, 2, 3, 4, 5];
@@ -7,16 +7,18 @@ const STORIES = [1, 2, 3, 4];
 const PartnersAndStoriesOnly = () => {
   const [partnerIndex, setPartnerIndex] = useState(0);
   const [storyIndex, setStoryIndex] = useState(0);
+  const [partners, setPartners] = useState([]);
 
   const next = (i, arr) => (i < arr.length - 1 ? i + 1 : 0);
   const prev = (i, arr) => (i > 0 ? i - 1 : arr.length - 1);
 
-  async function showPartners() {
-    const partners = await getPartners();
-    console.log(partners);
-    // fields.push(...partners);
-  }
-  showPartners();
+  useEffect(() => {
+    async function showPartners() {
+      const partnerss = await getPartners();
+      setPartners([...partnerss]);
+    }
+    showPartners();
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 relative">
@@ -33,11 +35,20 @@ const PartnersAndStoriesOnly = () => {
             <span className="text-xl">‹</span>
           </button>
 
-          <div className="grow h-40 bg-white/60 backdrop-blur-lg border border-cyan-200 rounded-2xl shadow-sm flex items-center justify-center">
-            <span className="text-gray-500 italic">
-              Partnyor loqoları gələcək
-            </span>
-          </div>
+          {partners &&
+            partners.map((p, i) => {
+              return (
+                <div
+                  key={i}
+                  className="grow h-40 bg-white/60 backdrop-blur-lg border border-cyan-200 rounded-2xl shadow-sm flex items-center justify-center"
+                >
+                  <img src={p.logo} className="mx-5" alt="logo" />
+                  <span key={p.id} className="text-gray-500 italic">
+                    {p.name}
+                  </span>
+                </div>
+              );
+            })}
 
           <button
             onClick={() => setPartnerIndex((p) => next(p, PARTNERS))}

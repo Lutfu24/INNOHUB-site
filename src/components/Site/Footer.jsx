@@ -7,6 +7,7 @@ import {
   Facebook,
   Youtube,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const ICONS = {
   Facebook,
@@ -20,7 +21,10 @@ const ICONS = {
 const socials = [
   { type: "Instagram", href: "https://www.instagram.com/innohub.az/" },
   { type: "Linkedin", href: "https://www.linkedin.com/company/innohubaz/" },
-  { type: "Facebook", href: "https://www.facebook.com/profile.php?id=61575515337853" },
+  {
+    type: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61575515337853",
+  },
 ];
 
 const contacts = [
@@ -62,11 +66,13 @@ export default function Footer() {
     <footer className="bg-gradient-to-t from-[#E0F8FF] to-white text-gray-800 font-sans">
       {/* Logo & Socials */}
       <div className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row md:justify-between items-center gap-6">
-        <img
-          src="https://i.ibb.co/kssj2vhX/dnisj.png"
-          alt="Logo"
-          className="h-12 md:h-16"
-        />
+        <Link to="/">
+          <img
+            src="https://i.ibb.co/kssj2vhX/dnisj.png"
+            alt="Logo"
+            className="h-12 md:h-16"
+          />
+        </Link>
         <div className="flex gap-3">
           {socials.map((s, i) => (
             <Social key={i} {...s} />

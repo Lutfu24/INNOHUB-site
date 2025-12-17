@@ -6,7 +6,7 @@ async function Contact(student) {
       "https://api.innohub.alakbarova.site/api/contact",
       student
     );
-    if (!res.data.length) throw new Error("data bosdur!");
+    if (res.status !== 201) throw new Error(res.data.message);
   } catch (error) {
     console.error(error.message);
   }

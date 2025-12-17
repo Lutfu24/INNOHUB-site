@@ -34,7 +34,9 @@ export default function Header() {
             <Link to="https://instagram.com/innohub.az">
               <BsInstagram />
             </Link>
-            <FaFacebookF />
+            <Link to="https://www.facebook.com/profile.php?id=61575515337853">
+              <FaFacebookF />
+            </Link>
           </div>
         </div>
       </header>
@@ -56,8 +58,8 @@ export default function Header() {
                 <ul className="grid gap-2 sm:w-[200px] md:w-[200px] lg:w-[300px] font-normal">
                   <Link to="film">Film klubu</Link>
                   <Link to="ingilisdili">Ingilis dili danışıq klubu</Link>
-                  <li>Sosial tədbirlər</li>
-                  <li>Könüllülük proqramları</li>
+                  <Link to="social">Sosial tədbirlər</Link>
+                  <Link to="volunteerprograms">Könüllülük proqramları</Link>
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -69,8 +71,8 @@ export default function Header() {
                 <ul className="grid w-[300px] gap-2 font-normal">
                   <Link to="haqqimizda">Haqqımızda</Link>
                   <li>Vizyon və missiyamız</li>
-                  <li>Vakansiyalar</li>
-                  <li>Sosial məsuliyyət</li>
+                  <Link to="vacancies">Vakansiyalar</Link>
+                  <Link to="socialresponsibility">Sosial məsuliyyət</Link>
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -80,8 +82,8 @@ export default function Header() {
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[200px] gap-2 font-normal">
-                  <li>Tədris sahələri</li>
-                  <li>Təqaüd proqramları</li>
+                  <Link to="teachingfield">Tədris sahələri</Link>
+                  <Link to="scholarship">Təqaüd proqramları</Link>
                   <li>Sahələr</li>
                 </ul>
               </NavigationMenuContent>

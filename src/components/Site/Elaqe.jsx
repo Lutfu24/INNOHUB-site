@@ -5,15 +5,19 @@ import toast, { Toaster } from "react-hot-toast";
 
 function Elaqe() {
   const [student, setStudent] = useState({
-    fullname: "",
-    mail: "",
-    telefon: 0,
-    mesaj: "",
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
 
   function createStudent(e) {
-    setStudent({ ...student, [e.target.name]: e.target.value });
+    setStudent({
+      ...student,
+      [e.target.name]: e.target.value,
+    });
   }
+  console.log(student);
   return (
     <>
       <div className="grid max-w-screen-xl grid-cols-1 gap-8 px-8 py-16 mx-auto rounded-lg md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 dark:bg-gray-100 dark:text-gray-800">
@@ -33,7 +37,7 @@ function Elaqe() {
             <input
               onInput={(e) => createStudent(e)}
               id="name"
-              name="fullname"
+              name="name"
               type="text"
               className="w-full p-3 rounded dark:bg-gray-100"
               fdprocessedid="1aqd9f"
@@ -46,7 +50,7 @@ function Elaqe() {
             <input
               onInput={(e) => createStudent(e)}
               id="email"
-              name="mail"
+              name="email"
               type="email"
               className="w-full p-3 rounded dark:bg-gray-100"
               fdprocessedid="p042p4"
@@ -59,7 +63,7 @@ function Elaqe() {
             <input
               onInput={(e) => createStudent(e)}
               id="name"
-              name="telefon"
+              name="phone"
               type="number"
               className="w-full p-3 rounded dark:bg-gray-100"
               fdprocessedid="1aqd9f"
@@ -72,15 +76,20 @@ function Elaqe() {
             <textarea
               id="message"
               onInput={(e) => createStudent(e)}
-              name="mesaj"
+              name="message"
               rows="3"
               className="w-full p-3 rounded dark:bg-gray-100"
             ></textarea>
           </div>
           <button
             onClick={() => {
-              Contact(student).then((res) => console.log(res));
-              toast.success("muracietiniz qebul edildi!");
+              Contact(student)
+                .then((res) => toast.success(res.data.message))
+                .catch((res) =>
+                  toast.error(
+                    "Çox sayda yaratma cəhdi⚠️ Zəhmət olmasa 1 saat sonra yenidən cəhd edin."
+                  )
+                );
             }}
             type="button"
             className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-violet-600 dark:text-gray-50"
