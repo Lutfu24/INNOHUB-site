@@ -1,74 +1,129 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const FloatingShape = ({ className, style, animationDelay }) => (
-  <motion.div
-    className={`absolute ${className}`}
-    style={style}
-    animate={{ y: [0, -25, 0], x: [0, 20, -20, 0] }}
-    transition={{ duration: 7, repeat: Infinity, delay: animationDelay }}
-  />
-);
+const advantages = [
+  "Regionda güclü innovasiya mühiti",
+  "Gənclər üçün praktiki texnoloji bacarıqlar",
+  "Real problemlərin həlli",
+  "Peşəkar mentor dəstəyi",
+  "Təqaüd imkanları gənclər üçün",
+  "Startap ekosisteminə daxil olmaq",
+  "Networking imkanları",
+  "Hackathon dəstəyi",
+  "Yeni layihələrdə iştirak",
+  "Gənclərin peşəkarlaşması",
+];
+
+const vakansiyalar = ['Frontend Developer', 'UX/UI Designer', 'Digital Marketing'];
+const projects = ['Layihə 1', 'Layihə 2', 'Layihə 3', 'Gələcək Layihə 1'];
 
 export default function AboutUsPage() {
-  const vakansiyalar = ['Frontend Developer', 'UX/UI Designer', 'Digital Marketing'];
-  const projects = ['Layihə 1', 'Layihə 2', 'Layihə 3', 'Gələcək Layihə 1'];
+  const [advIndex, setAdvIndex] = useState(0);
+
+  const handleClickInnohub = () => {
+    setAdvIndex((prev) => (prev + 1) % advantages.length);
+  };
 
   return (
-    <div className="min-h-screen relative font-sans bg-white overflow-hidden">
-      {/* Enhanced floating overlay elements with more innovation blue tones */}
-      <FloatingShape className="w-80 h-80 rounded-full bg-blue-400 opacity-25" style={{ top: '5%', left: '10%' }} animationDelay={0} />
-      <FloatingShape className="w-64 h-64 rounded-full bg-sky-400 opacity-30" style={{ top: '40%', left: '65%' }} animationDelay={1} />
-      <FloatingShape className="w-48 h-48 rounded-full bg-indigo-300 opacity-20" style={{ top: '70%', left: '25%' }} animationDelay={2} />
-      <FloatingShape className="w-96 h-96 rounded-3xl bg-gradient-to-tr from-blue-300 to-sky-300 opacity-15" style={{ top: '20%', left: '50%' }} animationDelay={0.5} />
-      <FloatingShape className="w-40 h-40 rounded-full bg-indigo-400 opacity-20" style={{ top: '60%', left: '75%' }} animationDelay={1.2} />
-      <FloatingShape className="w-56 h-56 rounded-full bg-sky-500 opacity-20" style={{ top: '30%', left: '30%' }} animationDelay={0.7} />
+    <div className="min-h-screen relative font-sans bg-white text-gray-900 px-6 py-8 overflow-hidden">
 
-      {/* Hero Section */}
-      <header className="relative z-10 flex flex-col items-center justify-center py-40 px-4">
-        <motion.h1 initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-6xl md:text-7xl font-extrabold text-indigo-700 text-center">
-          Haqqımızda
-        </motion.h1>
-        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="mt-6 text-xl md:text-2xl text-slate-700 max-w-3xl text-center">
-          Gələcəyin sənin əlindədir. Biz səninləyik!
-        </motion.p>
-      </header>
+      {/* Subtle tech grid */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute bg-blue-200/20 rounded-full"
+            style={{
+              width: `${Math.random()*4+2}px`,
+              height: `${Math.random()*4+2}px`,
+              top: `${Math.random()*100}%`,
+              left: `${Math.random()*100}%`
+            }}
+            animate={{ y: [0, -10, 0], x: [0, 10, -10, 0] }}
+            transition={{ duration: 6, repeat: Infinity, delay: i*0.1 }}
+          />
+        ))}
+      </div>
 
-      {/* About Content */}
-      <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="relative z-10 max-w-4xl mx-auto mt-16 p-12 bg-white bg-opacity-80 backdrop-blur-2xl rounded-3xl shadow-2xl border border-white border-opacity-20">
-        <p className="text-slate-700 text-lg md:text-xl leading-relaxed text-center">
-          INNOHUB, Azərbaycanın Gəncə şəhərində yerləşən, innovasiya yönümlü ekosistemin inkişafına xidmət edən müasir bir mərkəzdir. Biz ölkənin regionlarında yaşayan gənclərin ən aktual və yüksək tələbata sahib sahələrdə peşəkarlaşdırılmasını qarşımıza məqsəd qoyuruq.
-        </p>
-      </motion.section>
+      {/* Hero + INNOHUB Image */}
+      <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-6 items-center">
+        <motion.div 
+          initial={{ opacity:0, y:-5 }}
+          animate={{ opacity:1, y:0 }}
+          transition={{ duration:0.7 }}
+          className="col-span-3 md:col-span-1 text-center md:text-left space-y-2"
+        >
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Haqqımızda</h1>
+          <p className="text-gray-700 text-sm leading-relaxed">
+            INNOHUB, gəncləri texnoloji bacarıqlarla təmin edən, regionda innovasiya ekosistemini gücləndirən müasir mərkəzdir.
+          </p>
+
+          <button
+            onClick={handleClickInnohub}
+            className="bg-[#02C8FE] text-white px-5 py-2 rounded-md font-semibold mt-2 shadow-sm hover:shadow-md transition-shadow"
+          >
+            Niye INNOHUB?
+          </button>
+
+          <motion.p 
+            key={advIndex} 
+            initial={{ opacity:0, y:3 }} 
+            animate={{ opacity:1, y:0 }} 
+            transition={{ duration:0.3 }}
+            className="text-gray-900 text-sm font-medium mt-1"
+          >
+            {advantages[advIndex]}
+          </motion.p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity:0, y:5 }}
+          animate={{ opacity:1, y:0 }}
+          transition={{ duration:0.7, delay:0.2 }}
+          className="col-span-3 md:col-span-2 rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-200"
+        >
+          <img 
+            src="https://via.placeholder.com/600x400?text=INNOHUB+Bina" 
+            alt="INNOHUB Binası" 
+            className="w-full h-56 md:h-full object-cover"
+          />
+        </motion.div>
+      </div>
 
       {/* Vakansiyalar */}
-      <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="relative z-10 mt-32 max-w-5xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-semibold text-indigo-700 mb-10 text-center">Vakansiyalar</h2>
-        <div className="grid md:grid-cols-3 gap-10">
+      <section className="max-w-3xl mx-auto mb-6">
+        <h2 className="text-xl font-semibold mb-2 text-center text-gray-900">Vakansiyalar</h2>
+        <div className="grid md:grid-cols-3 gap-2">
           {vakansiyalar.map((v) => (
-            <motion.div key={v} whileHover={{ scale: 1.05, rotateY: 2 }} className="bg-white bg-opacity-80 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 text-center border border-white border-opacity-20 cursor-pointer transition-transform hover:shadow-3xl">
-              <h3 className="text-xl md:text-2xl font-semibold text-indigo-700 mb-3">{v}</h3>
-              <p className="text-slate-600 text-sm md:text-base">Komandamıza qoşulmaq üçün aktiv vakansiyalarımızı izlə!</p>
+            <motion.div 
+              key={v} 
+              whileHover={{ scale:1.03, boxShadow: '0 0 8px #02C8FE' }}
+              className="bg-[#02C8FE] text-white px-4 py-2 rounded-md text-center cursor-pointer transition-all text-sm"
+            >
+              {v}
             </motion.div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
       {/* Layihələr */}
-      <motion.section initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="relative z-10 mt-32 max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-semibold text-indigo-700 mb-10 text-center">Layihələr</h2>
-        <div className="grid md:grid-cols-4 gap-10">
+      <section className="max-w-4xl mx-auto mb-6">
+        <h2 className="text-xl font-semibold mb-2 text-center text-gray-900">Layihələr</h2>
+        <div className="grid md:grid-cols-4 gap-2">
           {projects.map((p) => (
-            <motion.div key={p} whileHover={{ scale: 1.05, rotateY: 2 }} className="bg-white bg-opacity-80 backdrop-blur-2xl rounded-3xl shadow-2xl p-8 text-center border border-white border-opacity-20 cursor-pointer transition-transform hover:shadow-3xl">
-              <h3 className="text-lg md:text-xl font-semibold text-indigo-700 mb-2">{p}</h3>
-              <p className="text-slate-600 text-sm md:text-base">Keçmiş və gələcək layihələr</p>
+            <motion.div 
+              key={p} 
+              whileHover={{ scale:1.03, boxShadow: '0 0 8px #02C8FE' }}
+              className="bg-[#02C8FE] text-white px-4 py-2 rounded-md text-center cursor-pointer transition-all text-sm"
+            >
+              {p}
             </motion.div>
           ))}
         </div>
-      </motion.section>
+      </section>
 
-      <footer className="relative z-10 mt-40 text-center text-slate-500 text-sm md:text-base pb-12">
-        #innovasiyahərkəsüçün &copy; 2025 INNOHUB. Bütün hüquqlar qorunur.
+      <footer className="text-center text-gray-700 text-xs pb-2">
+        &copy; 2025 INNOHUB. Bütün hüquqlar qorunur.
       </footer>
     </div>
   );

@@ -4,17 +4,25 @@ export default function FaqBox() {
   const [active, setActive] = useState(null);
 
   const data = [
-    { id: 1, title: "Ən çox verilən suallar" },
-    { id: 2, title: "2." },
-    { id: 3, title: "3." }
+    { 
+      id: 1, 
+      title: "Ən çox verilən suallar", 
+      desc: "Bu bölmədə ən çox soruşulan suallara cavab tapa bilərsiniz."
+    },
+    { 
+      id: 2, 
+      title: "İkinci sual", 
+      desc: "Bu sualın cavabı belədir: ... "
+    },
+    { 
+      id: 3, 
+      title: "Üçüncü sual", 
+      desc: "Bu isə üçüncü sualın cavabıdır."
+    }
   ];
 
   const handleClick = (i) => {
-    if (active === i) {
-      setActive(null);
-    } else {
-      setActive(i);
-    }
+    setActive(active === i ? null : i);
   };
 
   return (
@@ -23,17 +31,35 @@ export default function FaqBox() {
 
       <div className="flex flex-col gap-3">
         {data.map((item) => (
-          <div
-            key={item.id}
-            onClick={() => handleClick(item.id)}
-            className="bg-gray-200 rounded-xl px-5 py-4 cursor-pointer flex justify-between items-center"
-          >
-            <span>{item.id}. {item.title}</span>
-            <span className="text-xl">+</span>
+          <div key={item.id}>
+            <button
+              onClick={() => handleClick(item.id)}
+              className="bg-gray-200 rounded-xl px-5 py-4 cursor-pointer flex justify-between items-center w-full"
+            >
+              <span>
+                {item.id}. {item.title}
+              </span>
+
+              <span className="text-xl">
+                {active === item.id ? "-" : "+"}
+              </span>
+            </button>
+
+            {/* Answer text */}
+            <div
+              className={`overflow-hidden transition-all duration-300 
+                ${active === item.id ? "max-h-40 mt-2" : "max-h-0"}
+              `}
+            >
+              <p className="bg-gray-100 rounded-xl p-4 text-gray-700">
+                {item.desc}
+              </p>
+            </div>
           </div>
         ))}
       </div>
 
+      {/* Contact form */}
       <div className="flex flex-col gap-4 mt-6">
         <h3 className="text-lg font-semibold">Sualına cavab tapmadın? Əlaqə formu</h3>
 

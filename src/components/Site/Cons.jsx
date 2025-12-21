@@ -1,79 +1,110 @@
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 const UPCOMING_SESSIONS = [
   {
     id: 1,
     topic: "Technology & Daily Life",
-    dateTime: "20 Yanvar 2026 • 18:00",
+    desc: "Texnologiyanın həyatımıza təsiri haqqında müzakirə.",
+    date: "20 Yanvar 2026",
+    time: "18:00",
     location: "InnoHub Gəncə",
+    image:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800",
   },
   {
     id: 2,
     topic: "Education & Future Plans",
-    dateTime: "27 Yanvar 2026 • 18:00",
+    desc: "Təhsil və gələcək planlar mövzusunda debat.",
+    date: "27 Yanvar 2026",
+    time: "18:00",
     location: "InnoHub Gəncə",
+    image:
+      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800",
   },
   {
     id: 3,
     topic: "Work & Career",
-    dateTime: "3 Fevral 2026 • 18:00",
+    desc: "Karyera yönümlü danışıq simulyasiyası.",
+    date: "3 Fevral 2026",
+    time: "18:00",
     location: "InnoHub Gəncə",
+    image:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800",
   },
 ];
 
 const SessionCard = ({ session, onRegister }) => (
-  <div
+  <motion.div
     onClick={onRegister}
-    className="w-full sm:w-1/2 md:w-1/3 cursor-pointer transition-transform duration-300 hover:scale-105"
+    whileHover={{ scale: 1.04 }}
+    className="bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer group"
   >
-    <div className="bg-white rounded-3xl shadow-lg p-6 hover:shadow-xl">
-      <h3 className="text-xl font-bold text-gray-900 mb-2">
+    <div className="relative h-40 overflow-hidden">
+      <img
+        src={session.image}
+        alt={session.topic}
+        className="h-full w-full object-cover group-hover:scale-110 duration-300"
+      />
+      <div className="absolute inset-0 bg-black/30"></div>
+      <h3 className="absolute bottom-2 left-3 text-xl text-white font-bold drop-shadow-md">
         {session.topic}
       </h3>
-      <p className="text-gray-600">{session.dateTime}</p>
-      <p className="text-gray-600">Məkan: {session.location}</p>
+    </div>
 
-      <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition">
+    <div className="p-5 space-y-2">
+      <p className="text-gray-700 text-sm leading-snug">{session.desc}</p>
+
+      <p className="text-gray-900 font-semibold">
+        📅 {session.date} – {session.time}
+      </p>
+
+      <p className="text-gray-500 text-sm">📌 {session.location}</p>
+
+      <button className="mt-3 w-full bg-[#02C8FE] text-white py-2 font-semibold rounded-lg group-hover:bg-blue-500 duration-200">
         Qeydiyyat
       </button>
     </div>
-  </div>
+  </motion.div>
 );
 
 const RegistrationForm = ({ session, onBack }) => (
-  <div className="max-w-xl mx-auto bg-white rounded-3xl shadow-xl p-8 mt-16">
-    <h2 className="text-2xl font-bold text-center mb-6">
+  <div className="max-w-md mx-auto bg-white shadow-xl rounded-2xl p-8 mt-12">
+    <h2 className="text-2xl font-bold text-center mb-3 text-[#02C8FE]">
       Qeydiyyat – {session.topic}
     </h2>
 
-    <form className="flex flex-col gap-4">
+    <p className="text-center text-gray-600 mb-6 text-sm">
+      📅 {session.date} – {session.time} <br /> 📌 {session.location}
+    </p>
+
+    <form className="flex flex-col gap-3">
       <input
         type="text"
-        placeholder="Ad, Soyad"
-        className="p-3 border rounded-xl"
+        placeholder="Ad Soyad"
+        className="p-3 border rounded-lg"
       />
       <input
         type="tel"
         placeholder="Telefon"
-        className="p-3 border rounded-xl"
+        className="p-3 border rounded-lg"
       />
       <input
         type="email"
         placeholder="Email"
-        className="p-3 border rounded-xl"
+        className="p-3 border rounded-lg"
       />
-
       <button
         type="submit"
-        className="bg-green-500 text-white py-3 rounded-xl hover:bg-green-600 transition"
+        className="bg-[#02C8FE] text-white py-2 rounded-lg hover:bg-blue-500 transition"
       >
-        Təsdiq
+        Təsdiq et
       </button>
     </form>
 
     <button
       onClick={onBack}
-      className="mt-6 w-full bg-gray-300 py-3 rounded-xl hover:bg-gray-400 transition"
+      className="mt-4 w-full bg-gray-200 py-2 rounded-lg hover:bg-gray-300 transition font-medium"
     >
       Geri
     </button>
@@ -84,35 +115,33 @@ const IeltsSpeakingClub = () => {
   const [selectedSession, setSelectedSession] = useState(null);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-16">
+    <div className="min-h-screen px-6 py-12 max-w-6xl mx-auto text-gray-900">
       {!selectedSession && (
         <>
-          <div className="flex flex-col md:flex-row items-center gap-12 mb-20">
-            <div className="flex-1">
-              <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
-                IELTS əsaslı İngilis Dili Danışıq Klubu
+          <div className="grid md:grid-cols-2 gap-10 items-center mb-16">
+            <div>
+              <h1 className="text-4xl font-bold text-[#02C8FE] leading-tight mb-4">
+                IELTS əsaslı İngilis dili danışıq klubu
               </h1>
-              <p className="text-gray-700 text-lg leading-relaxed max-w-xl">
-                Klub hər kəs üçün ödənişsiz şəkildə IELTS imtahanının
-                “Speaking” mərhələsini simulyativ və interaktiv formatda
-                təcrübə etmək və birlikdə öyrənmək üçün təşkil edilir.
+
+              <p className="text-gray-700 text-base leading-relaxed">
+                Sən də həftəlik real IELTS danışıq simulyasiyalarında iştirak et,
+                öz ingilis dilini gücləndir və sosial şəbəkəni genişləndir!
               </p>
             </div>
 
-            <div className="flex-1">
-              <img
-                src="/images/ielts_club.png"
-                alt="IELTS Speaking Club"
-                className="w-full max-w-md rounded-3xl shadow-2xl"
-              />
-            </div>
+            <img
+              src="/images/ielts_club.png"
+              className="rounded-2xl shadow-xl"
+              alt="IELTS Speaking Club"
+            />
           </div>
 
-          <h2 className="text-3xl font-bold text-center mb-10">
-            Gələcək görüşlərimizdə sən də ol!
+          <h2 className="text-2xl font-bold text-center mb-8">
+            Gələcək sessiyalar 🎬
           </h2>
 
-          <div className="flex flex-wrap justify-center gap-8">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             {UPCOMING_SESSIONS.map((session) => (
               <SessionCard
                 key={session.id}
