@@ -50,8 +50,6 @@ function App() {
         <Route path="volunteerprograms" element={<VolunteerProgramsPage />} />
       </Route>
 
-      {/* <Routes></Routes> */}
-
       <Route path="*" element={<Error />} />
     </Routes>
   );

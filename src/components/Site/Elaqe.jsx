@@ -12,12 +12,15 @@ function Elaqe() {
   });
 
   function createStudent(e) {
+    if (!e.target.value) {
+      toast.error("xanaları doldurun...");
+      return;
+    }
     setStudent({
       ...student,
       [e.target.name]: e.target.value,
     });
   }
-  console.log(student);
   return (
     <>
       <div className="grid max-w-screen-xl grid-cols-1 gap-8 px-8 py-16 mx-auto rounded-lg md:grid-cols-2 md:px-12 lg:px-16 xl:px-32 dark:bg-gray-100 dark:text-gray-800">
