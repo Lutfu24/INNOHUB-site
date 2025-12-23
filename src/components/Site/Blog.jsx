@@ -10,7 +10,6 @@ function Blog() {
     }
     showBlogs();
   }, []);
-  console.log(blogs);
   return (
     <section className="dark:bg-gray-100 dark:text-gray-800">
       <div className="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">

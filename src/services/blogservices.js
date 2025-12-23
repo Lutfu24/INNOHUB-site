@@ -1,14 +1,15 @@
-import axios from "axios";
+import $axios from "@/api/accessor";
+import { $api } from "@/api/api";
 
 async function getBlogs() {
-  let res;
   try {
-    res = await axios.get("https://api.innohub.alakbarova.site/api/blog");
-    if (!res.data.length) throw new Error("data bosdur!");
+    const data = await $axios.get($api("blogs"));
+    if (!data.length) throw new Error("data boşdur!");
+    return data;
   } catch (error) {
     console.log(error.message);
+    return [];
   }
-  return res.data;
 }
 
 export { getBlogs };

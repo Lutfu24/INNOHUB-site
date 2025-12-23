@@ -1,14 +1,27 @@
-import axios from "axios";
+import $axios from "@/api/accessor";
+import { $api } from "@/api/api";
 
-async function getProjects() {
-  let res;
+async function getPastProjects() {
   try {
-    res = await axios.get("https://api.innohub.alakbarova.site/api/courses");
-    if (!res.data.length) throw new Error("data bosdur!");
+    const data = await $axios.get($api("projectsPast"));
+    return data;
   } catch (error) {
     console.log(error.message);
+    return [];
   }
-  return res.data;
 }
 
-export { getProjects };
+async function getFutureProjects() {
+  try {
+    const data = await $axios.get($api("projectsFuture"));
+    return data;
+  } catch (error) {
+    console.log(error.message);
+    return [];
+  }
+}
+
+export {
+  getPastProjects,
+  getFutureProjects
+};
