@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
+
+/* -------------------- DATA -------------------- */
 
 const PAST_HACKATHONS = [
   {
@@ -12,7 +14,6 @@ const PAST_HACKATHONS = [
     description:
       "Ağıllı şəhər problemlərinə innovativ texnoloji həllərin hazırlanması.",
   },
-
   {
     id: 2,
     topic: "Green Innovation Hackathon",
@@ -38,62 +39,66 @@ const FUTURE_HACKATHONS = [
   },
 ];
 
-const PastHackathonCard = ({ item, onOpen }) => (
-  <div
-    onClick={onOpen}
-    className="cursor-pointer group w-full sm:w-[48%] md:w-[31%]"
-  >
-    <div className="relative rounded-3xl overflow-hidden shadow-lg">
-      <img
-        src={item.image}
-        alt={item.topic}
-        className="w-full h-64 object-cover group-hover:scale-110 duration-500"
-      />
+/* -------------------- CARDS -------------------- */
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-5">
-        <h3 className="text-white text-xl font-bold">{item.topic}</h3>
+const PastHackathonCard = ({ item, onOpen }) => (
+  <button
+    onClick={onOpen}
+    className="group relative rounded-3xl overflow-hidden shadow-lg w-full text-left focus:outline-none"
+  >
+    <img
+      src={item.image}
+      alt={item.topic}
+      className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-110"
+    />
+
+    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent flex items-end p-5">
+      <div>
+        <h3 className="text-white text-xl font-bold mb-1">{item.topic}</h3>
+        <p className="text-white/80 text-sm">{item.dateTime}</p>
       </div>
+    </div>
+  </button>
+);
+
+const FutureHackathonCard = ({ item, onRegister }) => (
+  <div className="bg-white rounded-3xl shadow-md hover:shadow-xl transition overflow-hidden flex flex-col">
+    <img src={item.image} alt={item.topic} className="h-48 w-full object-cover" />
+
+    <div className="p-5 flex flex-col gap-2 flex-1">
+      <h3 className="text-lg font-bold">{item.topic}</h3>
+
+      <p className="text-sm text-gray-700">
+        <strong>Qaydalar:</strong> {item.rules}
+      </p>
+      <p className="text-sm text-gray-700">
+        <strong>Tarix:</strong> {item.dateTime}
+      </p>
+      <p className="text-sm text-gray-700">
+        <strong>Məkan:</strong> {item.location}
+      </p>
+
+      <button
+        onClick={onRegister}
+        className="mt-auto bg-[#02C8FE] text-white py-2 rounded-xl font-semibold hover:bg-blue-500 transition"
+      >
+        Qeydiyyat
+      </button>
     </div>
   </div>
 );
 
-const FutureHackathonCard = ({ item, onRegister }) => (
-  <div className="w-full sm:w-[48%] md:w-[31%]">
-    <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl duration-300">
-      <img
-        src={item.image}
-        alt={item.topic}
-        className="h-48 w-full object-cover"
-      />
+/* -------------------- MODALS -------------------- */
 
-      <div className="p-5 space-y-2 text-gray-900">
-        <h3 className="text-lg font-bold">{item.topic}</h3>
-
-        <p className="text-sm">
-          <strong>Qaydalar:</strong> {item.rules}
-        </p>
-        <p className="text-sm">
-          <strong>Tarix:</strong> {item.dateTime}
-        </p>
-        <p className="text-sm">
-          <strong>Məkan:</strong> {item.location}
-        </p>
-
-        <button
-          onClick={onRegister}
-          className="w-full bg-[#02C8FE] text-white py-2 rounded-xl hover:bg-blue-500 duration-200 font-semibold mt-4"
-        >
-          Qeydiyyat
-        </button>
-      </div>
-    </div>
+const Overlay = ({ children }) => (
+  <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center px-4">
+    {children}
   </div>
 );
 
 const HackathonDetails = ({ item, onClose }) => (
-  <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4">
-    <div className="bg-white max-w-lg w-full rounded-3xl shadow-2xl p-8 relative">
-
+  <Overlay>
+    <div className="bg-white max-w-lg w-full rounded-3xl shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto">
       <button
         onClick={onClose}
         className="absolute top-4 right-4 text-gray-500 hover:text-black"
@@ -105,25 +110,24 @@ const HackathonDetails = ({ item, onClose }) => (
 
       <p className="text-gray-700 mb-4">{item.description}</p>
 
-      <p className="text-gray-700 text-sm mb-1">
-        <strong>Qaydalar:</strong> {item.rules}
-      </p>
-
-      <p className="text-gray-700 text-sm mb-1">
-        <strong>Tarix:</strong> {item.dateTime}
-      </p>
-
-      <p className="text-gray-700 text-sm">
-        <strong>Məkan:</strong> {item.location}
-      </p>
+      <ul className="text-sm text-gray-700 space-y-1">
+        <li>
+          <strong>Qaydalar:</strong> {item.rules}
+        </li>
+        <li>
+          <strong>Tarix:</strong> {item.dateTime}
+        </li>
+        <li>
+          <strong>Məkan:</strong> {item.location}
+        </li>
+      </ul>
     </div>
-  </div>
+  </Overlay>
 );
 
 const RegistrationForm = ({ hackathon, onBack }) => (
-  <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center px-4">
-    <div className="bg-white w-full max-w-lg rounded-3xl shadow-xl p-8">
-
+  <Overlay>
+    <div className="bg-white w-full max-w-lg rounded-3xl shadow-xl p-6">
       <h2 className="text-2xl font-bold text-center mb-6">
         Qeydiyyat – {hackathon.topic}
       </h2>
@@ -133,47 +137,41 @@ const RegistrationForm = ({ hackathon, onBack }) => (
         <input className="p-3 border rounded-xl" placeholder="Telefon" />
         <input className="p-3 border rounded-xl" placeholder="Email" />
 
-        <button className="bg-[#02C8FE] text-white py-3 rounded-xl hover:bg-blue-500 font-semibold">
+        <button className="bg-[#02C8FE] text-white py-3 rounded-xl font-semibold hover:bg-blue-500">
           Təsdiq et
         </button>
       </form>
 
       <button
         onClick={onBack}
-        className="mt-4 w-full bg-gray-200 py-3 rounded-xl hover:bg-gray-300 font-semibold"
+        className="mt-4 w-full bg-gray-200 py-3 rounded-xl font-semibold hover:bg-gray-300"
       >
         Geri
       </button>
-
     </div>
-  </div>
+  </Overlay>
 );
 
-const Hackathons = () => {
+/* -------------------- PAGE -------------------- */
+
+export default function Hackathons() {
   const [details, setDetails] = useState(null);
   const [register, setRegister] = useState(null);
 
   return (
-    <div className="max-w-7xl mx-auto px-6 py-20">
-
-      <div className="mb-20 max-w-3xl">
-        <h1 className="text-4xl font-extrabold mb-5 text-gray-900">
-          INNOHUB Hakatonları
-        </h1>
-
+    <section className="max-w-7xl mx-auto px-6 py-20">
+      {/* Intro */}
+      <div className="max-w-3xl mb-20">
+        <h1 className="text-4xl font-extrabold mb-5">INNOHUB Hakatonları</h1>
         <p className="text-gray-700 text-lg leading-relaxed">
           INNOHUB hakatonları gənclərin real problemləri qısa müddətdə innovativ
-          həllərə çevirdiyi sürətli yaradıcılıq və inkişaf platformasıdır.
-          Burada iştirakçılar komandalarda işləyir, yeni texnologiyalarla tanış
-          olur, bacarıqlarını sınayır və potensial investorlarla şəbəkələşirlər.
+          həllərə çevirdiyi intensiv yaradıcılıq və inkişaf platformasıdır.
         </p>
       </div>
 
-      <h2 className="text-3xl font-bold mb-8 text-gray-900">
-        Keçmiş hakatonlar
-      </h2>
-
-      <div className="flex flex-wrap gap-8 mb-28">
+      {/* Past */}
+      <h2 className="text-3xl font-bold mb-8">Keçmiş hakatonlar</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-28">
         {PAST_HACKATHONS.map((item) => (
           <PastHackathonCard
             key={item.id}
@@ -183,11 +181,11 @@ const Hackathons = () => {
         ))}
       </div>
 
-      <h2 className="text-3xl font-bold mb-8 text-gray-900">
+      {/* Future */}
+      <h2 className="text-3xl font-bold mb-8">
         Gələcək hakatonlara sən də qoşul!
       </h2>
-
-      <div className="flex flex-wrap gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {FUTURE_HACKATHONS.map((item) => (
           <FutureHackathonCard
             key={item.id}
@@ -207,8 +205,6 @@ const Hackathons = () => {
           onBack={() => setRegister(null)}
         />
       )}
-    </div>
+    </section>
   );
-};
-
-export default Hackathons;
+}
