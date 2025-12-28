@@ -1,121 +1,139 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getPartners } from "../../services/homeServices";
 
-const PARTNERS = [1, 2, 3, 4, 5];
-const STORIES = [1, 2, 3, 4];
+/* =====================================================
+   PREMIUM STRATEGY (FINAL POLISH)
+   -----------------------------------------------------
+   ✔ Scroll-snap retained (best UX)
+   ✔ Vertical scrollbar COMPLETELY hidden
+   ✔ Horizontal scrollbar hidden (all browsers)
+   ✔ Cleaner spacing, calmer UI
+   ✔ Fewer visual noises → more "luxury" feel
+===================================================== */
 
-const PartnersAndStoriesOnly = () => {
-  const [partnerIndex, setPartnerIndex] = useState(0);
-  const [storyIndex, setStoryIndex] = useState(0);
+/* =========================
+   Utilities
+========================= */
+const hideScrollbar = "scrollbar-hide [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
+
+const ScrollButton = ({ onClick, children }) => (
+  <button
+    onClick={onClick}
+    className="hidden md:flex shrink-0 h-12 w-12 items-center justify-center rounded-full bg-white/90 backdrop-blur border border-slate-200 shadow-sm hover:shadow-md hover:border-cyan-400 transition"
+  >
+    <span className="text-2xl text-slate-600">{children}</span>
+  </button>
+);
+
+/* =========================
+   Partner Card (PREMIUM)
+========================= */
+const PartnerCard = ({ partner }) => (
+  <div className="snap-start shrink-0 w-[85%] sm:w-[320px] h-40 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200 shadow-sm flex items-center justify-center gap-5 px-6 hover:shadow-md transition">
+    <img
+      src={partner.logo}
+      alt={partner.name}
+      className="max-h-12 max-w-[120px] object-contain opacity-90"
+    />
+    <span className="text-slate-500 italic text-sm tracking-wide">
+      {partner.name}
+    </span>
+  </div>
+);
+
+/* =========================
+   Story Card (PREMIUM)
+========================= */
+const StoryCard = () => (
+  <div className="snap-start shrink-0 w-[90%] sm:w-[300px] h-52 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200 p-7 shadow-sm relative hover:shadow-md transition">
+    <span className="absolute -top-5 left-5 text-5xl font-serif text-cyan-200 rotate-180">❝</span>
+    <p className="text-slate-700 italic mt-6 leading-relaxed text-sm">
+      Uğur hekayəsi mətni (placeholder)
+    </p>
+  </div>
+);
+
+/* =========================
+   MAIN COMPONENT
+========================= */
+export default function PartnersAndStoriesOnly() {
   const [partners, setPartners] = useState([]);
 
-  const next = (i, arr) => (i < arr.length - 1 ? i + 1 : 0);
-  const prev = (i, arr) => (i > 0 ? i - 1 : arr.length - 1);
+  const partnerRef = useRef(null);
+  const storyRef = useRef(null);
 
   useEffect(() => {
-    async function showPartners() {
-      const partnerss = await getPartners();
-      setPartners([...partnerss]);
-    }
-    showPartners();
+    (async () => {
+      const data = await getPartners();
+      setPartners(data || []);
+    })();
   }, []);
 
+  const scroll = (ref, dir = 1) => {
+    if (!ref.current) return;
+    ref.current.scrollBy({
+      left: dir * ref.current.offsetWidth * 0.85,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 relative">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-cyan-100/40 to-transparent blur-2xl opacity-70" />
+    <section className="relative bg-white overflow-hidden">
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-cyan-100/40 to-transparent blur-3xl opacity-60" />
 
-      {/* PARTNERS */}
-      <section className="mb-20">
-        <h2 className="text-3xl font-bold text-gray-900 mb-6">Partnyorlar</h2>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
-        <div className="flex items-center gap-4 overflow-hidden">
-          <button
-            onClick={() => setPartnerIndex((p) => prev(p, partners))}
-            className="p-3 rounded-full bg-white border shadow-sm hover:shadow-md hover:border-cyan-400 transition"
-          >
-            <span className="text-xl">‹</span>
-          </button>
+        {/* ================= PARTNERS ================= */}
+        <section className="mb-28">
+          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 mb-10">
+            Partnyorlar
+          </h2>
 
-          <div className="grow overflow-hidden">
+          <div className="flex items-center gap-6">
+            <ScrollButton onClick={() => scroll(partnerRef, -1)}>‹</ScrollButton>
+
             <div
-              className="flex gap-5 transition-transform duration-500"
-              style={{
-                transform: `translateX(-${partnerIndex * 320}px)`,
-              }}
+              ref={partnerRef}
+              className={`flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth ${hideScrollbar}`}
             >
-              {partners.map((p, i) => (
-                <div
-                  key={i}
-                  className="min-w-[300px] h-40 shrink-0 bg-white/60 backdrop-blur-lg border border-cyan-200 rounded-2xl shadow-sm flex items-center justify-center"
-                >
-                  <img src={p.logo} className="mx-5" alt="logo" />
-                  <span className="text-gray-500 italic">{p.name}</span>
-                </div>
+              {partners.map((p) => (
+                <PartnerCard key={p.id} partner={p} />
               ))}
             </div>
+
+            <ScrollButton onClick={() => scroll(partnerRef, 1)}>›</ScrollButton>
+          </div>
+        </section>
+
+        <div className="h-px bg-slate-200 mb-24" />
+
+        {/* ================= STORIES ================= */}
+        <section>
+          <div className="mb-10">
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900">
+              Uğur hekayələri
+            </h2>
+            <p className="text-slate-500 mt-2 text-sm">
+              Sən də uğur hekayəni yaz
+            </p>
           </div>
 
+          <div className="flex items-center gap-6">
+            <ScrollButton onClick={() => scroll(storyRef, -1)}>‹</ScrollButton>
 
-          <button
-            onClick={() => setPartnerIndex((p) => next(p, partners))}
-            className="p-3 rounded-full bg-white border shadow-sm hover:shadow-md hover:border-cyan-400 transition"
-          >
-            <span className="text-xl">›</span>
-          </button>
-        </div>
-      </section>
-
-      <div className="h-px bg-gray-200 mb-16"></div>
-
-      {/* STORIES */}
-      <section>
-        <div className="mb-6">
-          <h2 className="text-3xl font-bold text-gray-900">Uğur hekayələri</h2>
-          <p className="text-gray-500 mt-1 text-sm">Sən də uğur hekayəni yaz</p>
-        </div>
-
-        <div className="flex items-center gap-4 overflow-hidden">
-          <button
-            onClick={() => setStoryIndex((s) => prev(s, STORIES))}
-            className="p-3 rounded-full bg-white border shadow-sm hover:shadow-md hover:border-cyan-400 transition"
-          >
-            <span className="text-xl">‹</span>
-          </button>
-
-          <div className="grow overflow-hidden">
             <div
-              className="flex gap-5 transition-transform duration-500"
-              style={{
-                transform: `translateX(-${storyIndex * 280}px)`,
-              }}
+              ref={storyRef}
+              className={`flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth ${hideScrollbar}`}
             >
-              {STORIES.map((story, index) => (
-                <div
-                  key={index}
-                  className="min-w-[260px] h-48 bg-white/70 backdrop-blur-xl border border-cyan-200 rounded-2xl p-6 shadow-sm relative flex-shrink-0 hover:-translate-y-1 hover:shadow-md transition duration-300"
-                >
-                  <span className="absolute -top-4 left-4 text-4xl font-extrabold text-cyan-300 opacity-70 rotate-180">
-                    ❝
-                  </span>
-
-                  <p className="text-gray-700 italic mt-5 leading-relaxed">
-                    Uğur hekayəsi mətni (placeholder)
-                  </p>
-                </div>
+              {Array.from({ length: 4 }).map((_, i) => (
+                <StoryCard key={i} />
               ))}
             </div>
-          </div>
 
-          <button
-            onClick={() => setStoryIndex((s) => next(s, STORIES))}
-            className="p-3 rounded-full bg-white border shadow-sm hover:shadow-md hover:border-cyan-400 transition"
-          >
-            <span className="text-xl">›</span>
-          </button>
-        </div>
-      </section>
-    </div>
+            <ScrollButton onClick={() => scroll(storyRef, 1)}>›</ScrollButton>
+          </div>
+        </section>
+      </div>
+    </section>
   );
-};
-
-export default PartnersAndStoriesOnly;
+}
