@@ -4,6 +4,7 @@ import TeachersSection from "./TeachersSectionUpdated";
 import PartnersStories from "./PartnersStories";
 import FAQ from "./FAQ";
 import Advan from "./Advan";
+import { Calendar, CalendarDayButton } from '../ui/calendar'
 
 
 
@@ -16,6 +17,7 @@ function Home() {
       <TeachersSection />
       <PartnersStories />
       <FAQ />
+      <Calendar/>
   
     </>
   );
