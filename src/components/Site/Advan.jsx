@@ -1,113 +1,114 @@
 import { Link } from "react-router-dom";
-import { getCourses } from "../../services/homeServices";
 import { useEffect, useState } from "react";
+import { getCourses } from "../../services/homeServices";
+import {
+  FaChalkboardTeacher,
+  FaProjectDiagram,
+  FaBriefcase,
+  FaUserGraduate,
+  FaClock,
+} from "react-icons/fa";
+
+/* ================== STATIC DATA ================== */
+
+const ADVANTAGES = [
+  { id: 1, title: "Mentor dəstəyi", icon: FaUserGraduate, link: "" },
+  { id: 2, title: "Praktiki layihələr", icon: FaProjectDiagram, link: "" },
+  { id: 3, title: "Karyera dəstəyi", icon: FaBriefcase, link: "karyera" },
+  { id: 4, title: "Təcrübəli müəllimlər", icon: FaChalkboardTeacher, link: "" },
+  { id: 5, title: "7/24 Açıq mərkəz", icon: FaClock, link: "haqqimizda" },
+];
+
+const TESTIMONIALS = [
+  { id: 1, img: "/users/u1.jpg" },
+  { id: 2, img: "/users/u2.jpg" },
+  { id: 3, img: "/users/u3.jpg" },
+];
+
+/* ================== COMPONENT ================== */
 
 export default function EduSections() {
   const [saheler, setSaheler] = useState([]);
-  const advantages = [
-    {
-      id: 1,
-      title: "Mentor dəstəyi",
-      link: "",
-      icon: "https://miro.medium.com/1*33M5QGJd6koOV1wCeC5Mtw.jpeg",
-    },
-    {
-      id: 2,
-      title: "Praktiki layihələr",
-      link: "",
-      icon: "https://www.ntaskmanager.com/wp-content/uploads/2020/02/What-is-a-Project-1-scaled.jpg",
-    },
-    {
-      id: 3,
-      title: "Karyera dəstəyi",
-      link: "karyera",
-      icon: "https://upload.wikimedia.org/wikipedia/commons/3/36/Careers_blackboard.jpg",
-    },
-    {
-      id: 4,
-      title: "Təcrübəli müəllimlər",
-      link: "",
-      icon: "https://centraldigest.com/wp-content/uploads/2023/01/InDefenseofTeachers.jpeg",
-    },
-    {
-      id: 5,
-      title: "7/24 Açıq mərkəz",
-      link: "haqqimizda",
-      icon: "https://st2.depositphotos.com/4320021/42186/v/450/depositphotos_421863992-stock-illustration-24-7-service-concept-24.jpg",
-    },
-  ];
 
   useEffect(() => {
-    async function showCourses() {
+    (async () => {
       const courses = await getCourses();
-      setSaheler([...courses]);
-    }
-    showCourses();
+      setSaheler(courses || []);
+    })();
   }, []);
 
-  const testimonials = [
-    { id: 1, img: "/users/u1.jpg" },
-    { id: 2, img: "/users/u2.jpg" },
-    { id: 3, img: "/users/u3.jpg" },
-  ];
-
   return (
-    <section className="flex justify-center">
-      <div className="w-[85%] p-6 md:p-10">
-        <h2 className="text-2xl font-bold mb-4">Üstünlüklərimiz</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
-          {advantages.map((a) => (
-            <Link key={a.id} to={a.link}>
-              <div className="bg-[#E8F9FF] rounded-3xl p-6 flex flex-col items-center justify-center text-center">
-                <img
-                  src={a.icon}
-                  className="w-22 h-20 mb-3 opacity-90 rounded-md"
-                />
-                <div className="font-semibold text-[#008EAF] text-lg">
-                  {a.title}
-                </div>
+    <section className="flex justify-center bg-white">
+      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+
+        {/* ================== ADVANTAGES ================== */}
+        <SectionTitle title="Üstünlüklərimiz" />
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-14">
+          {ADVANTAGES.map(({ id, title, icon: Icon, link }) => (
+            <Link key={id} to={link}>
+              <div className="group h-full rounded-3xl bg-[#E8F9FF] p-5 flex flex-col items-center justify-center text-center transition hover:-translate-y-1 hover:shadow-lg">
+                <Icon className="text-4xl text-[#008EAF] mb-3 group-hover:scale-110 transition" />
+                <p className="font-semibold text-[#008EAF] text-base sm:text-lg">
+                  {title}
+                </p>
               </div>
             </Link>
           ))}
         </div>
 
-        <h2 className="text-2xl font-bold mb-4">Sahələr</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-12">
-          {saheler &&
-            saheler.map((f, i) => (
-              <Link key={i} to={f.category}>
-                <div className="border border-[#7EE5FF] rounded-3xl p-6 flex flex-col items-center justify-center">
-                  <div className="w-20 h-20 rounded-full flex items-center justify-center mb-3 bg-white shadow-inner">
+        {/* ================== SAHƏLƏR ================== */}
+        <SectionTitle title="Sahələr" />
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-14">
+          {saheler.map((f) => (
+            <Link key={f.id} to={f.category}>
+              <div className="h-full rounded-3xl border border-[#7EE5FF] p-5 flex flex-col items-center justify-center transition hover:shadow-md hover:border-[#00C6FF]">
+                <div className="w-20 h-20 mb-3 rounded-full bg-white shadow-inner flex items-center justify-center">
+                  {f.image && (
                     <img
-                      src={f.image ? f.image : null}
-                      alt="img"
-                      className="max-w-20 max-h-20 rounded-full"
+                      src={f.image}
+                      alt={f.title}
+                      className="max-w-16 max-h-16 object-contain"
                     />
-                  </div>
-                  <div className="font-semibold text-[#00C6FF] text-lg">
-                    {f.title}
-                  </div>
+                  )}
                 </div>
-              </Link>
-            ))}
+                <p className="font-semibold text-[#00C6FF] text-center text-base">
+                  {f.title}
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
 
-        <h2 className="text-2xl font-bold mb-4">Rəylər</h2>
+        {/* ================== TESTIMONIALS ================== */}
+        <SectionTitle title="Rəylər" />
+
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {testimonials.map((t) => (
+          {TESTIMONIALS.map((t) => (
             <div
               key={t.id}
-              className="rounded-3xl h-28 bg-gradient-to-r from-[#C5F3FF] to-[#E8FAFF] flex items-center p-4"
+              className="rounded-3xl min-h-[110px] bg-gradient-to-r from-[#C5F3FF] to-[#E8FAFF] flex items-center justify-center"
             >
               <img
                 src={t.img}
-                alt=""
-                className="w-16 h-16 rounded-full object-cover"
+                alt="User"
+                className="w-16 h-16 rounded-full object-cover border-2 border-white"
               />
             </div>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+/* ================== REUSABLE ================== */
+
+function SectionTitle({ title }) {
+  return (
+    <h2 className="text-xl sm:text-2xl font-bold mb-5 text-gray-800">
+      {title}
+    </h2>
   );
 }
