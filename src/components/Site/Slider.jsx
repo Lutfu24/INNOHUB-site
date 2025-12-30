@@ -1,65 +1,129 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination, EffectFade } from "swiper/modules";
 
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-import { Autoplay, Navigation } from "swiper/modules";
+import "swiper/css/pagination";
+import "swiper/css/effect-fade";
 
 export function Slider() {
   return (
-    <>
-      <Swiper
-        spaceBetween={30}
-        centeredSlides={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
+    <section className="w-full px-0 md:px-6 md:py-4">
+      <div className="relative mx-auto max-w-[1400px] group">
+        <Swiper
+          loop
+          effect="fade"
+          centeredSlides
+          spaceBetween={0}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          navigation={{
+            nextEl: ".custom-next",
+            prevEl: ".custom-prev",
+          }}
+          pagination={{
+            clickable: true,
+            bulletClass: "custom-bullet",
+            bulletActiveClass: "custom-bullet-active",
+          }}
+          modules={[Autoplay, Navigation, Pagination, EffectFade]}
+          className="h-[400px] md:h-[480px] overflow-hidden md:rounded-[40px] shadow-2xl shadow-sky-200/40"
+        >
+          <SwiperSlide>
+            <div className="relative flex h-full w-full flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-[#E0F7FF] via-[#F0F9FF] to-[#E0F2FE] px-6 text-center">
+              <div className="pointer-events-none absolute inset-0 opacity-30">
+                <div className="absolute -top-[10%] -right-[5%] h-[300px] w-[300px] rounded-full bg-[#BEEFFF] blur-[80px]" />
+                <div className="absolute -bottom-[10%] -left-[5%] h-[250px] w-[250px] rounded-full bg-sky-200 blur-[70px]" />
+              </div>
+
+              <div className="relative z-10 max-w-3xl">
+                <span className="mb-4 block text-[10px] md:text-[12px] font-black uppercase tracking-[0.4em] text-[#0284C7]">
+                  Gələcəyi Qur
+                </span>
+
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-[#0F172A]">
+                  Gələcəyin{" "}
+                  <span className="text-[#02C8FE]">İT mütəxəssislərini</span>
+                  <br className="hidden md:block" />
+                  yetişdiririk
+                </h1>
+
+                <div className="mt-8 flex flex-wrap justify-center gap-4">
+                  <button className="rounded-full bg-[#02C8FE] px-8 py-3 text-sm font-bold text-white transition-all hover:shadow-lg hover:shadow-sky-300 active:scale-95">
+                    Müraciət et
+                  </button>
+                  <button className="rounded-full border border-sky-100 bg-white/60 px-6 py-3 text-sm font-bold text-[#0369A1] backdrop-blur-sm transition-all hover:bg-white">
+                    Proqramlar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-tr from-[#F0F9FF] to-[#E0F2FE] px-6 text-center">
+              <div className="max-w-3xl">
+                <span className="mb-4 block text-[10px] md:text-[12px] font-black uppercase tracking-[0.4em] text-sky-500">
+                  İcma Həyatı
+                </span>
+
+                <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.15] text-[#0F172A]">
+                  Sadəcə dərs yox,
+                  <br />
+                  <span className="text-[#0284C7]">
+                    film klubu və seminarlar
+                  </span>
+                </h1>
+
+                <div className="mt-8">
+                  <button className="rounded-full bg-[#0F172A] px-10 py-3 text-sm font-bold text-white shadow-lg transition-all hover:bg-slate-800">
+                    Hub həyatını kəşf et
+                  </button>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+
+        <button className="custom-prev absolute left-6 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-sky-200 bg-white/40 text-[#0284C7] backdrop-blur-md opacity-0 transition-all duration-500 hover:scale-110 hover:bg-white group-hover:opacity-100 lg:flex">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
+
+        <button className="custom-next absolute right-6 top-1/2 z-20 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-sky-200 bg-white/40 text-[#0284C7] backdrop-blur-md opacity-0 transition-all duration-500 hover:scale-110 hover:bg-white group-hover:opacity-100 lg:flex">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
+      </div>
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          .swiper-pagination {
+            bottom: 25px !important;
+          }
+          .custom-bullet {
+            width: 8px;
+            height: 8px;
+            background: #BAE6FD;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: inline-block;
+          }
+          .custom-bullet-active {
+            width: 24px;
+            background: #02C8FE;
+            border-radius: 10px;
+          }
+        `,
         }}
-        navigation={true}
-        modules={[Autoplay, Navigation]}
-        className="mySwiper"
-      >
-        <SwiperSlide>
-          <div className="bg-sky-300/20 w-full h-100 relative">
-            <h1 className="font-bold text-5xl absolute top-20 left-60">
-              <span className="ml-5">Gələcəyin İT</span> <br />
-              <span>mütəxəssislərini</span> <br />
-              <span className="ml-7">yetişdiririk</span>
-            </h1>
-            <button className="bg-[#13D9F9] rounded-3xl px-5 py-3 text-white absolute bottom-20 left-40">
-              Bizimlə Əlaqə
-            </button>
-            <button className="bg-[#13D9F9] rounded-3xl px-5 py-3 text-white absolute bottom-20 left-80">
-              Proqramlara Bax
-            </button>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="bg-sky-300/20 w-full h-100 relative">
-            <h1 className="font-bold text-5xl absolute top-20 left-60">
-              <span>Sadəcə dərs yox-film</span> <br />
-              <span className="ml-7">klubu, seminarlar,</span> <br />
-              <span className="ml-25">dostluqlar</span>
-            </h1>
-            <button className="bg-[#13D9F9] rounded-3xl px-5 py-3 text-white absolute bottom-20 left-40">
-              Hub həyatını kəşf et!
-            </button>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="bg-sky-300/20 w-full h-100 relative">
-            <h1 className="font-bold text-5xl absolute top-20 left-60">
-              <span>Könüllülük və sosial</span> <br />
-              <span className="ml-25">layihələrdə</span> <br />
-              <span className="ml-25">fayda yarat</span>
-            </h1>
-            <button className="bg-[#13D9F9] rounded-3xl px-5 py-3 text-white absolute bottom-20 left-40">
-              İcma ilə tanış ol
-            </button>
-          </div>
-        </SwiperSlide>
-      </Swiper>
-    </>
+      />
+    </section>
   );
 }
