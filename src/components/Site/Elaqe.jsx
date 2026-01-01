@@ -5,10 +5,10 @@ import toast, { Toaster } from "react-hot-toast";
 
 function Elaqe() {
   const [student, setStudent] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
+    name: "Ad Soyad",
+    email: "user@example.com",
+    phone: "+994501234567",
+    message: "Mesajınız burada...",
   });
 
   function createStudent(e) {
@@ -20,6 +20,30 @@ function Elaqe() {
       ...student,
       [e.target.name]: e.target.value,
     });
+  }
+
+  function formCheck() {
+    if (student.name === "Ad Soyad") {
+      toast.error("ad soyad daxil edin⚠️");
+      return;
+    } else if (student.email === "user@example.com") {
+      toast.error("email daxil edin⚠️");
+      return;
+    } else if (student.phone === "+994501234567") {
+      toast.error("telefon nömrəsi daxil edin⚠️");
+      return;
+    } else if (student.message === "Mesajınız burada...") {
+      toast.error("mesajınızı daxil edin⚠️");
+      return;
+    }
+
+    Contact(student)
+      .then((res) => toast.success(res.message))
+      .catch(() =>
+        toast.error(
+          "Çox sayda yaratma cəhdi⚠️ Zəhmət olmasa 1 saat sonra yenidən cəhd edin."
+        )
+      );
   }
   return (
     <>
@@ -42,6 +66,7 @@ function Elaqe() {
               id="name"
               name="name"
               type="text"
+              placeholder={student.name}
               className="w-full p-3 rounded dark:bg-gray-100"
               fdprocessedid="1aqd9f"
             />
@@ -55,6 +80,7 @@ function Elaqe() {
               id="email"
               name="email"
               type="email"
+              placeholder={student.email}
               className="w-full p-3 rounded dark:bg-gray-100"
               fdprocessedid="p042p4"
             />
@@ -67,7 +93,8 @@ function Elaqe() {
               onInput={(e) => createStudent(e)}
               id="name"
               name="phone"
-              type="number"
+              type="text"
+              placeholder={student.phone}
               className="w-full p-3 rounded dark:bg-gray-100"
               fdprocessedid="1aqd9f"
             />
@@ -80,20 +107,13 @@ function Elaqe() {
               id="message"
               onInput={(e) => createStudent(e)}
               name="message"
+              placeholder={student.message}
               rows="3"
               className="w-full p-3 rounded dark:bg-gray-100"
             ></textarea>
           </div>
           <button
-            onClick={() => {
-              Contact(student)
-                .then((res) => toast.success(res.data.message))
-                .catch((res) =>
-                  toast.error(
-                    "Çox sayda yaratma cəhdi⚠️ Zəhmət olmasa 1 saat sonra yenidən cəhd edin."
-                  )
-                );
-            }}
+            onClick={() => formCheck()}
             type="button"
             className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-violet-600 dark:text-gray-50"
             fdprocessedid="nqt6sf"

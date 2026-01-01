@@ -5,6 +5,7 @@ export const API = {
   teachers: "/teachers",
   projectsPast: "/projects/past",
   projectsFuture: "/projects/future",
-  blogs: "/blogs",
+  blog: "/blog",
+  blogId: "/blog/:id",
   contact: "/contact",
 };

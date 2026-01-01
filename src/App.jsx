@@ -30,8 +30,8 @@ function App() {
         <Route path="elaqe" element={<Elaqe />} />
         <Route path="haqqimizda" element={<AboutUsPage />} />
         <Route path="ingilisdili" element={<EnglishSpeakingClubPage />} />
-        <Route path="digital" element={<DigitalMarketingPage />} />
-        <Route path="dizayn" element={<GraphicDesignPage />} />
+        <Route path="AI" element={<DigitalMarketingPage />} />
+        <Route path="Design" element={<GraphicDesignPage />} />
         <Route path="film" element={<UltraMinimalFilmClubPage />} />
         <Route path="karyera" element={<CareerPage />} />
         <Route path="IT" element={<FullstackPage />} />

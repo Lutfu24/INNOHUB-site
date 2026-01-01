@@ -40,7 +40,6 @@ export default function EduSections() {
   return (
     <section className="flex justify-center bg-white">
       <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
-
         {/* ================== ADVANTAGES ================== */}
         <SectionTitle title="Üstünlüklərimiz" />
 
@@ -61,8 +60,8 @@ export default function EduSections() {
         <SectionTitle title="Sahələr" />
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-14">
-          {saheler.map((f) => (
-            <Link key={f.id} to={f.category}>
+          {saheler.map((f, i) => (
+            <Link key={i} to={f.category}>
               <div className="h-full rounded-3xl border border-[#7EE5FF] p-5 flex flex-col items-center justify-center transition hover:shadow-md hover:border-[#00C6FF]">
                 <div className="w-20 h-20 mb-3 rounded-full bg-white shadow-inner flex items-center justify-center">
                   {f.image && (

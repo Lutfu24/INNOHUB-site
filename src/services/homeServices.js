@@ -4,6 +4,7 @@ import { $api } from "@/api/api";
 async function Contact(student) {
   try {
     const data = await $axios.post($api("contact"), student);
+    if (!data) throw new Error("data boşdur!");
     return data;
   } catch (error) {
     console.error(error.message);

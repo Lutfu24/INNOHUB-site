@@ -7,7 +7,6 @@ const TeacherCard = ({ teacher }) => {
   return (
     <div className="w-full sm:w-[48%] lg:w-[30%]">
       <div className="group relative h-full rounded-[28px] bg-gradient-to-b from-cyan-50 to-white border border-cyan-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden">
-
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -37,7 +36,6 @@ const TeacherCard = ({ teacher }) => {
   );
 };
 
-
 const TeachersSection = () => {
   const [muellimler, setMuellimler] = useState([]);
 
@@ -52,14 +50,13 @@ const TeachersSection = () => {
   return (
     <section className="bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-
         <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 mb-12">
           Müəllimlər
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-6 lg:gap-8">
-          {muellimler.map((teacher) => (
-            <TeacherCard key={teacher.id} teacher={teacher} />
+        <div className="flex flex-wrap justify-start gap-6 lg:gap-8">
+          {muellimler.map((teacher, i) => (
+            <TeacherCard key={i} teacher={teacher} />
           ))}
         </div>
 

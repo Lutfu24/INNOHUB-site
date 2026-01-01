@@ -14,7 +14,8 @@ import { getPartners } from "../../services/homeServices";
 /* =========================
    Utilities
 ========================= */
-const hideScrollbar = "scrollbar-hide [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
+const hideScrollbar =
+  "scrollbar-hide [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden";
 
 const ScrollButton = ({ onClick, children }) => (
   <button
@@ -29,7 +30,7 @@ const ScrollButton = ({ onClick, children }) => (
    Partner Card (PREMIUM)
 ========================= */
 const PartnerCard = ({ partner }) => (
-  <div className="snap-start shrink-0 w-[85%] sm:w-[320px] h-40 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200 shadow-sm flex items-center justify-center gap-5 px-6 hover:shadow-md transition">
+  <div className="snap-start shrink-0 w-full h-40 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200 shadow-sm flex items-center justify-center gap-5 px-6 hover:shadow-md transition">
     <img
       src={partner.logo}
       alt={partner.name}
@@ -45,8 +46,10 @@ const PartnerCard = ({ partner }) => (
    Story Card (PREMIUM)
 ========================= */
 const StoryCard = () => (
-  <div className="snap-start shrink-0 w-[90%] sm:w-[300px] h-52 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200 p-7 shadow-sm relative hover:shadow-md transition">
-    <span className="absolute -top-5 left-5 text-5xl font-serif text-cyan-200 rotate-180">❝</span>
+  <div className="snap-start shrink-0 w-full sm:w-[500px] h-52 rounded-3xl bg-white/85 backdrop-blur-xl border border-slate-200 p-7 shadow-sm relative hover:shadow-md transition">
+    <span className="absolute -top-5 left-5 text-5xl font-serif text-cyan-200 rotate-180">
+      ❝
+    </span>
     <p className="text-slate-700 italic mt-6 leading-relaxed text-sm">
       Uğur hekayəsi mətni (placeholder)
     </p>
@@ -81,8 +84,7 @@ export default function PartnersAndStoriesOnly() {
     <section className="relative bg-white overflow-hidden">
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-cyan-100/40 to-transparent blur-3xl opacity-60" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* ================= PARTNERS ================= */}
         <section className="mb-28">
           <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 mb-10">
@@ -90,14 +92,16 @@ export default function PartnersAndStoriesOnly() {
           </h2>
 
           <div className="flex items-center gap-6">
-            <ScrollButton onClick={() => scroll(partnerRef, -1)}>‹</ScrollButton>
+            <ScrollButton onClick={() => scroll(partnerRef, -1)}>
+              ‹
+            </ScrollButton>
 
             <div
               ref={partnerRef}
-              className={`flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth ${hideScrollbar}`}
+              className={`flex gap-6 w-full overflow-x-auto snap-x snap-mandatory scroll-smooth ${hideScrollbar}`}
             >
-              {partners.map((p) => (
-                <PartnerCard key={p.id} partner={p} />
+              {partners.map((p, i) => (
+                <PartnerCard key={i} partner={p} />
               ))}
             </div>
 
@@ -123,7 +127,7 @@ export default function PartnersAndStoriesOnly() {
 
             <div
               ref={storyRef}
-              className={`flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth ${hideScrollbar}`}
+              className={`flex gap-6 w-full overflow-x-auto snap-x snap-mandatory scroll-smooth ${hideScrollbar}`}
             >
               {Array.from({ length: 4 }).map((_, i) => (
                 <StoryCard key={i} />
