@@ -8,4 +8,5 @@ export const API = {
   blog: "/blog",
   blogId: "/blog/:id",
   contact: "/contact",
+  career: "/career/apply",
 };

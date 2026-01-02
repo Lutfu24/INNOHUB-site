@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
+import { Career } from "../../services/careerservices.js";
 
 export default function CareerPage() {
   const [form, setForm] = useState({
@@ -8,18 +9,9 @@ export default function CareerPage() {
     lastName: "",
     phone: "",
     email: "",
-    area: ""
+    field: ["Sahənizi seçin", "IT", "Design", "AI"],
   });
   const [status, setStatus] = useState(null);
-
-  const areas = [
-    "Web Development",
-    "Design & UX",
-    "Digital Marketing",
-    "Helpdesk",
-    "UX/UI Design",
-    "Digər"
-  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,39 +20,42 @@ export default function CareerPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.firstName || !form.phone || !form.area) {
+    if (!form.firstName || !form.phone || !form.field) {
       setStatus({
         type: "error",
-        message: "Zəhmət olmasa müvafiq sahələri doldurun."
+        message: "Zəhmət olmasa müvafiq sahələri doldurun.",
       });
       return;
     }
-    setStatus({
-      type: "success",
-      message: "Qeydiyyat göndərildi — tezliklə əlaqə saxlanılacaq."
-    });
-    setForm({
-      firstName: "",
-      lastName: "",
-      phone: "",
-      email: "",
-      area: ""
+    console.log(form);
+    Career(form).then((res) => {
+      setStatus({
+        type: "success",
+        message: res.message,
+      });
+      setForm({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        field: ["IT", "Design", "AI"],
+      });
     });
   };
 
   const infoBlocks = [
     {
       title: "Fərdi Dəstək",
-      desc: "Bacarıq və məqsədlərinizə uyğun fərdi karyera yönləndirilməsi."
+      desc: "Bacarıq və məqsədlərinizə uyğun fərdi karyera yönləndirilməsi.",
     },
     {
       title: "Peşəkar Mentorluq",
-      desc: "Sahə üzrə real təcrübəyə malik mentorlarla inkişaf."
+      desc: "Sahə üzrə real təcrübəyə malik mentorlarla inkişaf.",
     },
     {
       title: "Praktik Yanaşma",
-      desc: "Real layihələr və bazar tələblərinə uyğun biliklər."
-    }
+      desc: "Real layihələr və bazar tələblərinə uyğun biliklər.",
+    },
   ];
 
   return (
@@ -74,11 +69,11 @@ export default function CareerPage() {
             links: {
               enable: true,
               color: "#02C8FE",
-              distance: 140
+              distance: 140,
             },
             move: { enable: true, speed: 1 },
-            number: { value: 40 }
-          }
+            number: { value: 40 },
+          },
         }}
         className="absolute inset-0 z-0"
       />
@@ -129,15 +124,19 @@ export default function CareerPage() {
         />
 
         <select
-          name="area"
-          value={form.area}
+          name="field"
           onChange={handleChange}
           className="input md:col-span-2"
         >
-          <option value="">Sahə seçin</option>
-          {areas.map((a) => (
-            <option key={a}>{a}</option>
-          ))}
+          {typeof form.field !== "string" ? (
+            form.field.map((a, i) => (
+              <option key={i} value={a}>
+                {a}
+              </option>
+            ))
+          ) : (
+            <option>{form.field}</option>
+          )}
         </select>
 
         <button
