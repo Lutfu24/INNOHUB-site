@@ -1,9 +1,21 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCourseID } from "../../services/homeServices";
 
 const FullstackProPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [openIndex, setOpenIndex] = useState(null);
+  const [course, setCourse] = useState();
+  const query = location.search;
+  const id = new URLSearchParams(query).get("ID");
+
+  useEffect(() => {
+    async function showDesign() {
+      const res = await getCourseID(id);
+      setCourse(res);
+    }
+    showDesign();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,11 +27,20 @@ const FullstackProPage = () => {
   };
 
   const syllabus = [
-    { title: "Frontend Development", desc: "HTML, CSS, JavaScript, React ilə UI qurulması." },
-    { title: "Backend Development", desc: "Node.js, Express, REST API, Auth sistemləri." },
+    {
+      title: "Frontend Development",
+      desc: "HTML, CSS, JavaScript, React ilə UI qurulması.",
+    },
+    {
+      title: "Backend Development",
+      desc: "Node.js, Express, REST API, Auth sistemləri.",
+    },
     { title: "Database", desc: "MongoDB, SQL, data modelləşməsi." },
     { title: "Deployment", desc: "Docker, AWS, Heroku ilə real deploy." },
-    { title: "Career Skills", desc: "Git, teamwork, CV və interview hazırlığı." },
+    {
+      title: "Career Skills",
+      desc: "Git, teamwork, CV və interview hazırlığı.",
+    },
   ];
 
   const courseInfo = [
@@ -33,7 +54,6 @@ const FullstackProPage = () => {
 
   return (
     <section className="min-h-screen w-full bg-gray-50 overflow-x-hidden px-3 sm:px-6 py-10">
-
       {/* HERO */}
       <div className="max-w-6xl mx-auto text-center mb-10">
         <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-[#02C8FE] mb-3">
@@ -46,7 +66,6 @@ const FullstackProPage = () => {
 
       {/* MAIN GRID */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 overflow-x-hidden">
-
         {/* SYLLABUS */}
         <div className="lg:col-span-1">
           <div
@@ -62,9 +81,7 @@ const FullstackProPage = () => {
               min-w-0
             "
           >
-            <h2 className="text-xl font-bold text-[#02C8FE] mb-4">
-              Syllabus
-            </h2>
+            <h2 className="text-xl font-bold text-[#02C8FE] mb-4">Syllabus</h2>
 
             {syllabus.map((item, idx) => (
               <div key={idx} className="border-b last:border-none min-w-0">
@@ -79,9 +96,7 @@ const FullstackProPage = () => {
                 </button>
 
                 {openIndex === idx && (
-                  <p className="pb-3 text-gray-600 text-xs">
-                    {item.desc}
-                  </p>
+                  <p className="pb-3 text-gray-600 text-xs">{item.desc}</p>
                 )}
               </div>
             ))}
@@ -90,22 +105,43 @@ const FullstackProPage = () => {
 
         {/* CONTENT */}
         <div className="lg:col-span-2 space-y-10 min-w-0">
-
           {/* COURSE INFO */}
           <div>
             <h2 className="text-xl sm:text-2xl font-bold mb-4">
               Kurs haqqında
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {courseInfo.map((info, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white p-4 rounded-xl shadow min-w-0"
-                >
-                  <h3 className="font-bold text-sm">{info.label}</h3>
-                  <p className="text-xs text-gray-600">{info.value}</p>
-                </div>
-              ))}
+              <div className="bg-white p-4 rounded-xl shadow min-w-0">
+                <h3 className="font-bold text-sm">Müddət</h3>
+                <p className="text-xs text-gray-600">{course?.duration}</p>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow min-w-0">
+                <h3 className="font-bold text-sm">Dərslər</h3>
+                <p className="text-xs text-gray-600">{course?.schedule}</p>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow min-w-0">
+                <h3 className="font-bold text-sm">Müəllim</h3>
+                <p className="text-xs text-gray-600">{course?.trainer}</p>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow min-w-0">
+                <h3 className="font-bold text-sm">Full Stack</h3>
+                <p className="text-xs text-gray-600">{course?.description}</p>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow min-w-0">
+                <h3 className="font-bold text-sm">Başlıq</h3>
+                <p className="text-xs text-gray-600">{course?.title}</p>
+              </div>
+
+              <div className="bg-white p-4 rounded-xl shadow min-w-0">
+                <h3 className="font-bold text-sm">Başlanma tarixi</h3>
+                <p className="text-xs text-gray-600">
+                  {course?.createdAt.slice(0, 10)}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -116,10 +152,7 @@ const FullstackProPage = () => {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {["E-commerce", "Blog", "Portfolio"].map((title, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white rounded-xl shadow min-w-0"
-                >
+                <div key={idx} className="bg-white rounded-xl shadow min-w-0">
                   <div className="h-24 bg-gray-200 flex items-center justify-center text-xs">
                     Preview
                   </div>
@@ -152,9 +185,18 @@ const FullstackProPage = () => {
                 <h2 className="text-center font-bold text-[#02C8FE]">
                   Qeydiyyat
                 </h2>
-                <input className="w-full p-2 border rounded-lg text-sm" placeholder="Ad Soyad" />
-                <input className="w-full p-2 border rounded-lg text-sm" placeholder="Telefon" />
-                <input className="w-full p-2 border rounded-lg text-sm" placeholder="Email" />
+                <input
+                  className="w-full p-2 border rounded-lg text-sm"
+                  placeholder="Ad Soyad"
+                />
+                <input
+                  className="w-full p-2 border rounded-lg text-sm"
+                  placeholder="Telefon"
+                />
+                <input
+                  className="w-full p-2 border rounded-lg text-sm"
+                  placeholder="Email"
+                />
                 <button className="w-full bg-[#02C8FE] text-white py-2 rounded-lg">
                   Göndər
                 </button>

@@ -29,14 +29,14 @@ function App() {
         <Route path="blog" element={<Blog />} />
         <Route path="elaqe" element={<Elaqe />} />
         <Route path="haqqimizda" element={<AboutUsPage />} />
-        <Route path="ingilisdili" element={<EnglishSpeakingClubPage />} />
+        <Route path="speaking_club" element={<EnglishSpeakingClubPage />} />
         <Route path="AI" element={<DigitalMarketingPage />} />
-        <Route path="Design" element={<GraphicDesignPage />} />
+        <Route path="UIUX" element={<GraphicDesignPage />} />
         <Route path="film" element={<UltraMinimalFilmClubPage />} />
         <Route path="karyera" element={<CareerPage />} />
         <Route path="IT" element={<FullstackPage />} />
         <Route path="hackathons" element={<Hackathons />} />
-        <Route path="innotalks" element={<InnoTalks />} />
+        <Route path="innotalk" element={<InnoTalks />} />
         <Route path="IThelp" element={<ITHelpdeskPage />} />
         <Route path="scholarship" element={<ScholarshipsWithDetail />} />
         <Route path="social" element={<SocialEventsPage />} />
@@ -45,7 +45,7 @@ function App() {
           element={<SocialResponsibilityPage />}
         />
         <Route path="teachingfield" element={<TeachingFieldsPage />} />
-        <Route path="UIUX" element={<UIUXDesignPage />} />
+        <Route path="Design" element={<UIUXDesignPage />} />
         <Route path="vacancies" element={<VacanciesPage />} />
         <Route path="volunteerprograms" element={<VolunteerProgramsPage />} />
       </Route>

@@ -22,6 +22,17 @@ async function getCourses() {
   }
 }
 
+async function getCourseID(id) {
+  try {
+    const data = await $axios.get($api("courseById") + id);
+    if (!data) throw new Error("data boşdur!");
+    return data;
+  } catch (error) {
+    console.log(error.message);
+    return [];
+  }
+}
+
 async function getPartners() {
   try {
     const data = await $axios.get($api("partners"));
@@ -44,4 +55,22 @@ async function getTeachers() {
   }
 }
 
-export { Contact, getCourses, getPartners, getTeachers };
+async function getCarousels() {
+  try {
+    const data = await $axios.get($api("carousel"));
+    if (!data.length) throw new Error("data boşdur!");
+    return data;
+  } catch (error) {
+    console.log(error.message);
+    return [];
+  }
+}
+
+export {
+  Contact,
+  getCourses,
+  getPartners,
+  getTeachers,
+  getCarousels,
+  getCourseID,
+};

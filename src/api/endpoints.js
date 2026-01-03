@@ -1,6 +1,6 @@
 export const API = {
   courses: "/courses",
-  courseById: "/courses/{id}",
+  courseById: "/courses/",
   partners: "/partners",
   teachers: "/teachers",
   projectsPast: "/projects/past",
@@ -9,4 +9,7 @@ export const API = {
   blogId: "/blog/:id",
   contact: "/contact",
   career: "/career/apply",
+  events: "/events",
+  scholarships: "/scholarships",
+  carousel: "/carousel",
 };

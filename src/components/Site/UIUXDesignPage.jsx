@@ -1,31 +1,43 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCourseID } from "../../services/homeServices";
 
 const UIUXDesignPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [course, setCourse] = useState();
   const [openSyllabus, setOpenSyllabus] = useState(null);
+  const query = location.search;
+  const id = new URLSearchParams(query).get("ID");
+
+  useEffect(() => {
+    async function showDesign() {
+      const res = await getCourseID(id);
+      setCourse(res);
+    }
+    showDesign();
+  }, []);
 
   const syllabus = [
     {
       title: "User Research & Empathy",
-      content: "User persona, interview, usability testing və problem analizi."
+      content: "User persona, interview, usability testing və problem analizi.",
     },
     {
       title: "Information Architecture",
-      content: "User flow, sitemap, strukturlaşdırılmış dizayn yanaşması."
+      content: "User flow, sitemap, strukturlaşdırılmış dizayn yanaşması.",
     },
     {
       title: "Wireframing & Prototyping",
-      content: "Low & high fidelity wireframe, Figma ilə prototiplər."
+      content: "Low & high fidelity wireframe, Figma ilə prototiplər.",
     },
     {
       title: "UI Design & Visual Systems",
-      content: "Typography, color system, spacing və design systems."
+      content: "Typography, color system, spacing və design systems.",
     },
     {
       title: "UX Strategy & Testing",
-      content: "A/B testing, usability test, iterativ dizayn yanaşması."
-    }
+      content: "A/B testing, usability test, iterativ dizayn yanaşması.",
+    },
   ];
 
   const handleSubmit = (e) => {
@@ -59,7 +71,7 @@ const UIUXDesignPage = () => {
           </div>
 
           <img
-            src="https://cdn.dribbble.com/users/1078341/screenshots/14728164/media/0d5f7ee6b8f5947f48b3b9c6da4b6ff0.png"
+            src={course?.image}
             alt="UI UX"
             className="rounded-3xl shadow-2xl"
           />
@@ -100,40 +112,28 @@ const UIUXDesignPage = () => {
           <div className="lg:col-span-2 space-y-12">
             {/* INFO CARDS */}
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {[
-                { title: "Müddət", text: "6 ay – həftədə 3 dəfə, hər dərs 3 saat" },
-                { title: "Praktika", text: "Real məhsullar üzərində iş" },
-                { title: "Portfolio", text: "Final layihə + case study" },
-                { title: "Tools", text: "Figma, FigJam, UX tools" },
-                { title: "Mentorluq", text: "Feedback və design review" },
-                { title: "Karyera", text: "Junior UI/UX dizayner hazırlığı" }
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="bg-white p-6 rounded-2xl shadow-lg"
-                >
-                  <h3 className="text-[#00B8D9] font-semibold mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-gray-600">{item.text}</p>
-                </div>
-              ))}
+              <div className="bg-white p-6 rounded-2xl shadow-lg">
+                <h3 className="text-[#00B8D9] font-semibold mb-2">Müddət</h3>
+                <p className="text-sm text-gray-600">{course?.duration}</p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl shadow-lg">
+                <h3 className="text-[#00B8D9] font-semibold mb-2">Dərslər</h3>
+                <p className="text-sm text-gray-600">{course?.schedule}</p>
+              </div>
+              <div className="bg-white p-6 rounded-2xl shadow-lg">
+                <h3 className="text-[#00B8D9] font-semibold mb-2">Müəllim</h3>
+                <p className="text-sm text-gray-600">{course?.trainer}</p>
+              </div>
             </div>
 
             {/* FEATURE BLOCKS */}
             <div className="grid md:grid-cols-3 gap-6">
-              {[
-                "User Research",
-                "Wireframing",
-                "Visual Design"
-              ].map((f, i) => (
+              {["User Research", "Wireframing", "Visual Design"].map((f, i) => (
                 <div
                   key={i}
                   className="bg-white rounded-2xl shadow-lg p-6 text-center"
                 >
-                  <h3 className="text-lg font-semibold text-[#00B8D9]">
-                    {f}
-                  </h3>
+                  <h3 className="text-lg font-semibold text-[#00B8D9]">{f}</h3>
                 </div>
               ))}
             </div>
@@ -168,9 +168,18 @@ const UIUXDesignPage = () => {
                   Qeydiyyat Formu
                 </h2>
                 <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
-                  <input className="p-3 border rounded-xl" placeholder="Ad Soyad" />
-                  <input className="p-3 border rounded-xl" placeholder="Telefon" />
-                  <input className="p-3 border rounded-xl" placeholder="Email" />
+                  <input
+                    className="p-3 border rounded-xl"
+                    placeholder="Ad Soyad"
+                  />
+                  <input
+                    className="p-3 border rounded-xl"
+                    placeholder="Telefon"
+                  />
+                  <input
+                    className="p-3 border rounded-xl"
+                    placeholder="Email"
+                  />
                   <button className="bg-[#00B8D9] text-white py-2 rounded-xl">
                     Göndər
                   </button>
