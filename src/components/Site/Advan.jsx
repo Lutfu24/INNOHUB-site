@@ -61,7 +61,7 @@ export default function EduSections() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-14">
           {saheler.map((f, i) => (
-            <Link key={i} to={f.category}>
+            <Link key={i} to={f.category + "?ID=" + f._id}>
               <div className="h-full rounded-3xl border border-[#7EE5FF] p-5 flex flex-col items-center justify-center transition hover:shadow-md hover:border-[#00C6FF]">
                 <div className="w-20 h-20 mb-3 rounded-full bg-white shadow-inner flex items-center justify-center">
                   {f.image && (

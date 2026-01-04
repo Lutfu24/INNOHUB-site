@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { getPartners } from "../../services/homeServices";
+import { Link } from "react-router-dom";
 
 /* =====================================================
    PREMIUM STRATEGY (FINAL POLISH)
@@ -31,14 +32,18 @@ const ScrollButton = ({ onClick, children }) => (
 ========================= */
 const PartnerCard = ({ partner }) => (
   <div className="snap-start shrink-0 w-full h-40 rounded-3xl bg-white/80 backdrop-blur-xl border border-slate-200 shadow-sm flex items-center justify-center gap-5 px-6 hover:shadow-md transition">
-    <img
-      src={partner.logo}
-      alt={partner.name}
-      className="max-h-12 max-w-[120px] object-contain opacity-90"
-    />
-    <span className="text-slate-500 italic text-sm tracking-wide">
-      {partner.name}
-    </span>
+    <Link to={partner.url}>
+      <img
+        src={partner.logo}
+        alt={partner.name}
+        className="max-h-12 max-w-[120px] object-contain opacity-90"
+      />
+    </Link>
+    <Link to={partner.url}>
+      <span className="text-slate-500 italic text-sm tracking-wide">
+        {partner.name}
+      </span>
+    </Link>
   </div>
 );
 

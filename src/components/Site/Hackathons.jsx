@@ -1,61 +1,24 @@
-import { useState } from "react";
-
-/* -------------------- DATA -------------------- */
-
-const PAST_HACKATHONS = [
-  {
-    id: 1,
-    topic: "Smart City Hackathon",
-    rules: "48 saat, komanda işi",
-    dateTime: "12–14 Mart 2024",
-    location: "InnoHub Gəncə",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800",
-    description:
-      "Ağıllı şəhər problemlərinə innovativ texnoloji həllərin hazırlanması.",
-  },
-  {
-    id: 2,
-    topic: "Green Innovation Hackathon",
-    rules: "Maks. 4 nəfər",
-    dateTime: "5–7 Aprel 2024",
-    location: "InnoHub Gəncə",
-    image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800",
-    description:
-      "Ekoloji problemlər üçün dayanıqlı və yaşıl həllərin hazırlanması.",
-  },
-];
-
-const FUTURE_HACKATHONS = [
-  {
-    id: 3,
-    topic: "AI for Real Life Problems",
-    rules: "Açıq mövzu, mentor dəstəyi",
-    dateTime: "20–22 May 2026",
-    location: "InnoHub Gəncə",
-    image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=800",
-  },
-];
+import { useEffect, useState } from "react";
+import { getFuture, getPast, Register } from "../../services/hakatonsservices";
+import toast, { Toaster } from "react-hot-toast";
 
 /* -------------------- CARDS -------------------- */
 
 const PastHackathonCard = ({ item, onOpen }) => (
   <button
     onClick={onOpen}
-    className="group relative rounded-3xl overflow-hidden shadow-lg w-full text-left focus:outline-none"
+    className="group cursor-pointer relative rounded-3xl overflow-hidden shadow-lg w-full text-left focus:outline-none"
   >
     <img
       src={item.image}
-      alt={item.topic}
+      alt={item.type}
       className="h-64 w-full object-cover transition-transform duration-500 group-hover:scale-110"
     />
 
     <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-transparent flex items-end p-5">
       <div>
-        <h3 className="text-white text-xl font-bold mb-1">{item.topic}</h3>
-        <p className="text-white/80 text-sm">{item.dateTime}</p>
+        <h3 className="text-white text-xl font-bold mb-1">{item.title}</h3>
+        <p className="text-white/80 text-sm">{item.date.slice(0, 10)}</p>
       </div>
     </div>
   </button>
@@ -63,16 +26,20 @@ const PastHackathonCard = ({ item, onOpen }) => (
 
 const FutureHackathonCard = ({ item, onRegister }) => (
   <div className="bg-white rounded-3xl shadow-md hover:shadow-xl transition overflow-hidden flex flex-col">
-    <img src={item.image} alt={item.topic} className="h-48 w-full object-cover" />
+    <img
+      src={item.image}
+      alt={item.type}
+      className="h-48 w-full object-cover"
+    />
 
     <div className="p-5 flex flex-col gap-2 flex-1">
-      <h3 className="text-lg font-bold">{item.topic}</h3>
+      <h3 className="text-lg font-bold">{item.title}</h3>
 
       <p className="text-sm text-gray-700">
         <strong>Qaydalar:</strong> {item.rules}
       </p>
       <p className="text-sm text-gray-700">
-        <strong>Tarix:</strong> {item.dateTime}
+        <strong>Tarix:</strong> {item.date.slice(0, 10)}
       </p>
       <p className="text-sm text-gray-700">
         <strong>Məkan:</strong> {item.location}
@@ -80,7 +47,7 @@ const FutureHackathonCard = ({ item, onRegister }) => (
 
       <button
         onClick={onRegister}
-        className="mt-auto bg-[#02C8FE] text-white py-2 rounded-xl font-semibold hover:bg-blue-500 transition"
+        className="mt-auto cursor-pointer bg-[#02C8FE] text-white py-2 rounded-xl font-semibold hover:bg-blue-500 transition"
       >
         Qeydiyyat
       </button>
@@ -101,12 +68,12 @@ const HackathonDetails = ({ item, onClose }) => (
     <div className="bg-white max-w-lg w-full rounded-3xl shadow-2xl p-6 relative max-h-[90vh] overflow-y-auto">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-gray-500 hover:text-black"
+        className="absolute cursor-pointer top-4 right-4 text-gray-500 hover:text-black"
       >
         ✕
       </button>
 
-      <h2 className="text-2xl font-bold mb-4">{item.topic}</h2>
+      <h2 className="text-2xl font-bold mb-4">{item.title}</h2>
 
       <p className="text-gray-700 mb-4">{item.description}</p>
 
@@ -115,7 +82,7 @@ const HackathonDetails = ({ item, onClose }) => (
           <strong>Qaydalar:</strong> {item.rules}
         </li>
         <li>
-          <strong>Tarix:</strong> {item.dateTime}
+          <strong>Tarix:</strong> {item.date.slice(0, 10)}
         </li>
         <li>
           <strong>Məkan:</strong> {item.location}
@@ -125,26 +92,49 @@ const HackathonDetails = ({ item, onClose }) => (
   </Overlay>
 );
 
-const RegistrationForm = ({ hackathon, onBack }) => (
+const RegistrationForm = ({
+  hackathon,
+  onBack,
+  handleForm,
+  handlePostForm,
+}) => (
   <Overlay>
     <div className="bg-white w-full max-w-lg rounded-3xl shadow-xl p-6">
       <h2 className="text-2xl font-bold text-center mb-6">
-        Qeydiyyat – {hackathon.topic}
+        Qeydiyyat – {hackathon.title}
       </h2>
 
-      <form className="flex flex-col gap-4">
-        <input className="p-3 border rounded-xl" placeholder="Ad Soyad" />
-        <input className="p-3 border rounded-xl" placeholder="Telefon" />
-        <input className="p-3 border rounded-xl" placeholder="Email" />
+      <div className="flex flex-col gap-4">
+        <input
+          onInput={(e) => handleForm(e)}
+          name="name"
+          className="p-3 border rounded-xl"
+          placeholder="Ad Soyad"
+        />
+        <input
+          onInput={(e) => handleForm(e)}
+          name="email"
+          className="p-3 border rounded-xl"
+          placeholder="Email"
+        />
+        <input
+          onInput={(e) => handleForm(e)}
+          name="phone"
+          className="p-3 border rounded-xl"
+          placeholder="Telefon"
+        />
 
-        <button className="bg-[#02C8FE] text-white py-3 rounded-xl font-semibold hover:bg-blue-500">
+        <button
+          onClick={() => handlePostForm()}
+          className="bg-[#02C8FE] cursor-pointer text-white py-3 rounded-xl font-semibold hover:bg-blue-500"
+        >
           Təsdiq et
         </button>
-      </form>
+      </div>
 
       <button
         onClick={onBack}
-        className="mt-4 w-full bg-gray-200 py-3 rounded-xl font-semibold hover:bg-gray-300"
+        className="mt-4 w-full cursor-pointer bg-gray-200 py-3 rounded-xl font-semibold hover:bg-gray-300"
       >
         Geri
       </button>
@@ -157,54 +147,99 @@ const RegistrationForm = ({ hackathon, onBack }) => (
 export default function Hackathons() {
   const [details, setDetails] = useState(null);
   const [register, setRegister] = useState(null);
+  const [past, setPast] = useState();
+  const [future, setFuture] = useState();
+  const [input, setInput] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
+  function handleForm(e) {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  }
+
+  function handlePostForm() {
+    if (!input.name || !input.phone || !input.email) {
+      toast.error("boş xanaları doldurun⚠️");
+      return;
+    }
+    Register(register, input)
+      .then((res) => {
+        toast.success(res.message);
+        setRegister(null);
+      })
+      .catch((err) => toast.error(err.message));
+  }
+
+  useEffect(() => {
+    async function showPast() {
+      const res = await getPast();
+      setPast(res);
+    }
+    showPast();
+    async function showFuture() {
+      const res = await getFuture();
+      setFuture(res);
+    }
+    showFuture();
+  }, []);
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-20">
-      {/* Intro */}
-      <div className="max-w-3xl mb-20">
-        <h1 className="text-4xl font-extrabold mb-5">INNOHUB Hakatonları</h1>
-        <p className="text-gray-700 text-lg leading-relaxed">
-          INNOHUB hakatonları gənclərin real problemləri qısa müddətdə innovativ
-          həllərə çevirdiyi intensiv yaradıcılıq və inkişaf platformasıdır.
-        </p>
-      </div>
+    <>
+      <Toaster />
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        {/* Intro */}
+        <div className="max-w-3xl mb-20">
+          <h1 className="text-4xl font-extrabold mb-5">INNOHUB Hakatonları</h1>
+          <p className="text-gray-700 text-lg leading-relaxed">
+            INNOHUB hakatonları gənclərin real problemləri qısa müddətdə
+            innovativ həllərə çevirdiyi intensiv yaradıcılıq və inkişaf
+            platformasıdır.
+          </p>
+        </div>
 
-      {/* Past */}
-      <h2 className="text-3xl font-bold mb-8">Keçmiş hakatonlar</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-28">
-        {PAST_HACKATHONS.map((item) => (
-          <PastHackathonCard
-            key={item.id}
-            item={item}
-            onOpen={() => setDetails(item)}
+        {/* Past */}
+        <h2 className="text-3xl font-bold mb-8">Keçmiş hakatonlar</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-28">
+          {past &&
+            past.map((item) => (
+              <PastHackathonCard
+                key={item._id}
+                item={item}
+                onOpen={() => setDetails(item)}
+              />
+            ))}
+        </div>
+
+        {/* Future */}
+        <h2 className="text-3xl font-bold mb-8">
+          Gələcək hakatonlara sən də qoşul!
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {future &&
+            future.map((item) => (
+              <FutureHackathonCard
+                key={item._id}
+                item={item}
+                onRegister={() => setRegister(item)}
+              />
+            ))}
+        </div>
+
+        {details && (
+          <HackathonDetails item={details} onClose={() => setDetails(null)} />
+        )}
+
+        {register && (
+          <RegistrationForm
+            hackathon={register}
+            onBack={() => setRegister(null)}
+            handleForm={handleForm}
+            handlePostForm={handlePostForm}
           />
-        ))}
-      </div>
-
-      {/* Future */}
-      <h2 className="text-3xl font-bold mb-8">
-        Gələcək hakatonlara sən də qoşul!
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {FUTURE_HACKATHONS.map((item) => (
-          <FutureHackathonCard
-            key={item.id}
-            item={item}
-            onRegister={() => setRegister(item)}
-          />
-        ))}
-      </div>
-
-      {details && (
-        <HackathonDetails item={details} onClose={() => setDetails(null)} />
-      )}
-
-      {register && (
-        <RegistrationForm
-          hackathon={register}
-          onBack={() => setRegister(null)}
-        />
-      )}
-    </section>
+        )}
+      </section>
+    </>
   );
 }

@@ -10,11 +10,11 @@ const DigitalMarketingPage = () => {
   const id = new URLSearchParams(query).get("ID");
 
   useEffect(() => {
-    async function showDesign() {
+    async function showDigital() {
       const res = await getCourseID(id);
       setCourse(res);
     }
-    showDesign();
+    showDigital();
   }, []);
 
   const features = [

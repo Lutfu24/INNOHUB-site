@@ -2,6 +2,7 @@ import { useState } from "react";
 import svg from "../../assets/doodle.svg";
 import { Contact } from "../../services/homeServices";
 import toast, { Toaster } from "react-hot-toast";
+import LiquidButtonDemo from "../ui/muracietButton";
 
 function Elaqe() {
   const [student, setStudent] = useState({
@@ -56,7 +57,7 @@ function Elaqe() {
           </div>
           <img src={svg} alt="svg" className="p-6 h-52 md:h-64" />
         </div>
-        <form noValidate="" className="space-y-6">
+        <div className="space-y-6">
           <div>
             <label htmlFor="name" className="text-sm">
               Ad Soyad
@@ -112,15 +113,10 @@ function Elaqe() {
               className="w-full p-3 rounded dark:bg-gray-100"
             ></textarea>
           </div>
-          <button
-            onClick={() => formCheck()}
-            type="button"
-            className="w-full p-3 text-sm font-bold tracking-wide uppercase rounded dark:bg-violet-600 dark:text-gray-50"
-            fdprocessedid="nqt6sf"
-          >
-            Müraciət et!
+          <button className="w-full" onClick={() => formCheck()}>
+            <LiquidButtonDemo />
           </button>
-        </form>
+        </div>
       </div>
       <Toaster />
     </>

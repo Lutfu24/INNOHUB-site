@@ -33,6 +33,19 @@ async function getCourseID(id) {
   }
 }
 
+async function applyCourse(course, input) {
+  try {
+    const data = await $axios.post(
+      $api("applyCourse") + course._id + "/apply",
+      input
+    );
+    if (!data) throw new Error("data boşdur!");
+    return data;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 async function getPartners() {
   try {
     const data = await $axios.get($api("partners"));
@@ -73,4 +86,5 @@ export {
   getTeachers,
   getCarousels,
   getCourseID,
+  applyCourse,
 };

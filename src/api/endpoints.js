@@ -1,6 +1,7 @@
 export const API = {
   courses: "/courses",
   courseById: "/courses/",
+  applyCourse: "/courses/",
   partners: "/partners",
   teachers: "/teachers",
   projectsPast: "/projects/past",
@@ -12,4 +13,7 @@ export const API = {
   events: "/events",
   scholarships: "/scholarships",
   carousel: "/carousel",
+  past: "/hackathons/past",
+  future: "/hackathons/future",
+  registerHakaton: "/hackathons/",
 };
