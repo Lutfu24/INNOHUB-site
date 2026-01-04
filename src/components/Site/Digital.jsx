@@ -5,12 +5,12 @@ const DigitalMarketingPage = () => {
   const [showQuote, setShowQuote] = useState(false);
   const [tooltipCard, setTooltipCard] = useState(null);
   const [course, setCourse] = useState();
-  console.log(course);
   const query = location.search;
   const id = new URLSearchParams(query).get("ID");
 
   useEffect(() => {
     async function showDigital() {
+      if (!id) return;
       const res = await getCourseID(id);
       setCourse(res);
     }

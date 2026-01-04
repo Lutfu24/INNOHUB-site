@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 // --- Data ---
@@ -15,7 +15,11 @@ const advantages = [
   "Gənclərin peşəkarlaşması",
 ];
 
-const vakansiyalar = ["Frontend Developer", "UX/UI Designer", "Digital Marketing"];
+const vakansiyalar = [
+  "Frontend Developer",
+  "UX/UI Designer",
+  "Digital Marketing",
+];
 const projects = ["Layihə 1", "Layihə 2", "Layihə 3", "Gələcək Layihə 1"];
 
 // --- Reusable Card ---
@@ -52,7 +56,6 @@ export default function AboutUsPage() {
       </div>
 
       <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-16">
-
         {/* Hero Section */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <motion.div
@@ -65,8 +68,9 @@ export default function AboutUsPage() {
               Haqqımızda
             </h1>
             <p className="text-gray-700 leading-relaxed max-w-xl mx-auto lg:mx-0">
-              INNOHUB gəncləri real texnoloji bacarıqlarla təmin edən, innovasiya və
-              startap mədəniyyətini inkişaf etdirən müasir mərkəzdir.
+              INNOHUB gəncləri real texnoloji bacarıqlarla təmin edən,
+              innovasiya və startap mədəniyyətini inkişaf etdirən müasir
+              mərkəzdir.
             </p>
             <div className="flex flex-col sm:flex-row items-center lg:items-start gap-3">
               <button
@@ -123,7 +127,6 @@ export default function AboutUsPage() {
             ))}
           </div>
         </section>
-
       </div>
     </div>
   );

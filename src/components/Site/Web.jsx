@@ -28,12 +28,18 @@ const FullstackProPage = () => {
       .then((res) => {
         toast.success(res.message);
         setShowModal(false);
+        setInput({
+          name: "",
+          email: "",
+          phone: "",
+        });
       })
       .catch((err) => toast.error(err.message));
   }
 
   useEffect(() => {
     async function showWeb() {
+      if (!id) return;
       const res = await getCourseID(id);
       setCourse(res);
     }

@@ -168,6 +168,11 @@ export default function Hackathons() {
       .then((res) => {
         toast.success(res.message);
         setRegister(null);
+        setInput({
+          name: "",
+          email: "",
+          phone: "",
+        });
       })
       .catch((err) => toast.error(err.message));
   }

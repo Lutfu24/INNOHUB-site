@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 const VACANCIES = [
   {
     id: 1,
     title: "Frontend Developer",
     location: "Gəncə",
-    link: "/IT",
     type: "Tam zamanlı",
     description:
       "HTML, CSS, JavaScript və React üzrə biliklər tələb olunur. Komanda ilə əməkdaşlıq bacarığı vacibdir.",
@@ -15,7 +13,6 @@ const VACANCIES = [
     id: 2,
     title: "UI/UX Designer",
     location: "Gəncə",
-    link: "/UIUX",
     type: "Part-time",
     description:
       "Figma və Adobe XD ilə dizayn təcrübəsi olan dizayner axtarılır. Kreativ və detalçı olmaq önəmlidir.",
@@ -24,7 +21,6 @@ const VACANCIES = [
     id: 3,
     title: "Digital Marketing Specialist",
     location: "Gəncə",
-    link: "/digital",
     type: "Tam zamanlı",
     description:
       "SEO, SMM və analitika üzrə biliklərə malik mütəxəssis axtarılır. Strateji düşünmə bacarığı vacibdir.",
@@ -36,14 +32,12 @@ const VacancyCard = ({ vacancy, onClick }) => (
     onClick={onClick}
     className="w-full sm:w-1/3 cursor-pointer transition-transform duration-300 hover:scale-105"
   >
-    <Link to={vacancy.link}>
-      <div className="relative overflow-hidden rounded-2xl shadow-lg bg-white p-6 hover:shadow-xl">
-        <h3 className="text-xl font-bold text-gray-900">{vacancy.title}</h3>
-        <p className="mt-2 text-sm text-gray-500">
-          {vacancy.location} • {vacancy.type}
-        </p>
-      </div>
-    </Link>
+    <div className="relative overflow-hidden rounded-2xl shadow-lg bg-white p-6 hover:shadow-xl">
+      <h3 className="text-xl font-bold text-gray-900">{vacancy.title}</h3>
+      <p className="mt-2 text-sm text-gray-500">
+        {vacancy.location} • {vacancy.type}
+      </p>
+    </div>
   </div>
 );
 

@@ -241,10 +241,6 @@ export default function Header() {
                   {menu === "Proqramlar" && (
                     <>
                       <DropdownLink to="/film" label="Film klubu" />
-                      <DropdownLink
-                        to="/ingilisdili"
-                        label="İngilis dili danışıq klubu"
-                      />
                       <DropdownLink to="/social" label="Sosial tədbirlər" />
                       <DropdownLink
                         to="/volunteerprograms"
@@ -255,7 +251,6 @@ export default function Header() {
                   {menu === "Mərkəz" && (
                     <>
                       <DropdownLink to="/haqqimizda" label="Haqqımızda" />
-                      <DropdownLink to="#" label="Vizyon və missiyamız" />
                       <DropdownLink to="/vacancies" label="Vakansiyalar" />
                       <DropdownLink
                         to="/socialresponsibility"

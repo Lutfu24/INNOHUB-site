@@ -11,6 +11,8 @@ export const API = {
   contact: "/contact",
   career: "/career/apply",
   events: "/events",
+  eventId: "/events/",
+  registerEvent: "/events/",
   scholarships: "/scholarships",
   carousel: "/carousel",
   past: "/hackathons/past",
