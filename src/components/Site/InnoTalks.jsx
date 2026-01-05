@@ -47,7 +47,7 @@ const TalkCardPast = ({ item, isPast, onRegister }) => (
         {!isPast && (
           <button
             onClick={onRegister}
-            className="mt-4 w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+            className="mt-4 w-full cursor-pointer bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
           >
             Qeydiyyat
           </button>
@@ -83,7 +83,7 @@ const TalkCard = ({ talks, isPast, onRegister }) => (
         {!isPast && (
           <button
             onClick={onRegister}
-            className="mt-4 w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
+            className="mt-4 w-full cursor-pointer bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition"
           >
             Qeydiyyat
           </button>
@@ -119,14 +119,14 @@ const TalkRegistration = ({ talk, onBack, handleSubmit, handleForm }) => (
         placeholder="Telefon"
       />
 
-      <button className="bg-green-600 text-white py-3 rounded-xl hover:bg-green-700">
+      <button className="bg-green-600 cursor-pointer text-white py-3 rounded-xl hover:bg-green-700">
         Təsdiq
       </button>
     </form>
 
     <button
       onClick={onBack}
-      className="mt-4 w-full bg-gray-300 py-3 rounded-xl"
+      className="mt-4 w-full cursor-pointer bg-gray-300 py-3 rounded-xl"
     >
       Geri
     </button>

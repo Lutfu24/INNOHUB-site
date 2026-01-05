@@ -4,6 +4,7 @@ import TeachersSection from "./TeachersSectionUpdated";
 import PartnersStories from "./PartnersStories";
 import FAQ from "./FAQ";
 import Advan from "./Advan";
+import { CalendarDemo } from "./Calendar";
 
 function Home() {
   return (
@@ -14,6 +15,7 @@ function Home() {
       <TeachersSection />
       <PartnersStories />
       <FAQ />
+      <CalendarDemo />
     </>
   );
 }

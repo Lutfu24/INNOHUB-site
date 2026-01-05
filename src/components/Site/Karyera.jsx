@@ -141,7 +141,7 @@ export default function CareerPage() {
 
         <button
           onClick={handleSubmit}
-          className="md:col-span-2 py-4 bg-[#02C8FE] text-white rounded-2xl font-semibold text-lg shadow-lg hover:scale-[1.02] transition"
+          className="md:col-span-2 py-4 cursor-pointer bg-[#02C8FE] text-white rounded-2xl font-semibold text-lg shadow-lg hover:scale-[1.02] transition"
         >
           Qeydiyyatdan keç
         </button>

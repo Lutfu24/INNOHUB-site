@@ -113,9 +113,9 @@ function Elaqe() {
               className="w-full p-3 rounded dark:bg-gray-100"
             ></textarea>
           </div>
-          <button className="w-full" onClick={() => formCheck()}>
+          <div className="w-full" onClick={() => formCheck()}>
             <LiquidButtonDemo />
-          </button>
+          </div>
         </div>
       </div>
       <Toaster />

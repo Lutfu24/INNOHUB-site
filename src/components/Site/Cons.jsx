@@ -37,7 +37,7 @@ const SessionCard = ({ event, onRegister }) => (
         📌 {event?.location}
       </p>
 
-      <button className="mt-3 w-full bg-[#02C8FE] text-white py-2 rounded-lg font-semibold group-hover:bg-blue-500 transition duration-200 text-sm sm:text-[0.95rem]">
+      <button className="mt-3 w-full cursor-pointer bg-[#02C8FE] text-white py-2 rounded-lg font-semibold group-hover:bg-blue-500 transition duration-200 text-sm sm:text-[0.95rem]">
         Qeydiyyat
       </button>
     </div>
@@ -78,14 +78,14 @@ const RegistrationForm = ({ session, onBack, handleForm, handleSubmit }) => (
         className="p-3 sm:p-3.5 border rounded-lg"
       />
 
-      <button className="bg-[#02C8FE] text-white py-2 sm:py-2.5 rounded-lg hover:bg-blue-500 transition font-semibold">
+      <button className="bg-[#02C8FE] cursor-pointer text-white py-2 sm:py-2.5 rounded-lg hover:bg-blue-500 transition font-semibold">
         Təsdiq et
       </button>
     </form>
 
     <button
       onClick={onBack}
-      className="mt-4 w-full bg-gray-200 py-2 rounded-lg hover:bg-gray-300 transition font-medium text-sm sm:text-[0.95rem]"
+      className="mt-4 w-full bg-gray-200 cursor-pointer py-2 rounded-lg hover:bg-gray-300 transition font-medium text-sm sm:text-[0.95rem]"
     >
       Geri
     </button>

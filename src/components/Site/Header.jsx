@@ -1,13 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  ChevronDown,
-  Menu,
-  X,
-  Search,
-  Instagram,
-  Facebook,
-} from "lucide-react";
+import { ChevronDown, Menu, X, Instagram, Facebook } from "lucide-react";
 import logo from "../../assets/logo2.png";
 
 export default function Header() {

@@ -40,10 +40,22 @@ const contacts = [
 
 const links = [
   {
-    title: "Tədris Sahələri",
-    items: ["Dizayn", "Proqramlaşdırma", "Rəqəmsal Marketinq"],
+    title: "Digər",
+    items: [
+      {
+        title: "Tədbirlər",
+        url: "/social",
+      },
+      {
+        title: "Blog",
+        url: "/blog",
+      },
+      {
+        title: "Əlaqə",
+        url: "/elaqe",
+      },
+    ],
   },
-  { title: "Digər", items: ["Tədbirlər", "Blog", "Əlaqə"] },
 ];
 
 const Social = ({ type, href }) => {
@@ -145,7 +157,7 @@ export default function Footer() {
             <ul className="space-y-1 text-gray-600 text-sm">
               {col.items.map((l, j) => (
                 <li key={j} className="hover:text-[#03C8FE] cursor-pointer">
-                  {l}
+                  <Link to={l.url}>{l.title}</Link>
                 </li>
               ))}
             </ul>
