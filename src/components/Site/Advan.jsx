@@ -16,7 +16,7 @@ const ADVANTAGES = [
   { id: 2, title: "Praktiki layihələr", icon: FaProjectDiagram, link: "" },
   { id: 3, title: "Karyera dəstəyi", icon: FaBriefcase, link: "karyera" },
   { id: 4, title: "Təcrübəli müəllimlər", icon: FaChalkboardTeacher, link: "" },
-  { id: 5, title: "7/24 Açıq mərkəz", icon: FaClock, link: "haqqimizda" },
+  { id: 5, title: "7 gün açıq mərkəz", icon: FaClock, link: "haqqimizda" },
 ];
 
 const TESTIMONIALS = [

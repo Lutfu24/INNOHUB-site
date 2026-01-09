@@ -1,47 +1,31 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import Particles from "react-tsparticles";
 import { Career } from "../../services/careerservices.js";
+import { useForm, Controller } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import ErrorMessage from "./ErrorMessage.jsx";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import LiquidButtonDemo from "../ui/muracietButton.jsx";
 
 export default function CareerPage() {
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    field: ["Sahənizi seçin", "IT", "Design", "AI"],
-  });
-  const [status, setStatus] = useState(null);
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((s) => ({ ...s, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!form.firstName || !form.phone || !form.field) {
-      setStatus({
-        type: "error",
-        message: "Zəhmət olmasa müvafiq sahələri doldurun.",
-      });
-      return;
-    }
-    console.log(form);
-    Career(form).then((res) => {
-      setStatus({
-        type: "success",
-        message: res.message,
-      });
-      setForm({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        field: ["IT", "Design", "AI"],
-      });
-    });
-  };
+  function onSubmit(data) {
+    Career(data)
+      .then((res) => toast.success(res.message))
+      .catch((err) => toast.error(err.message));
+  }
 
   const infoBlocks = [
     {
@@ -60,23 +44,7 @@ export default function CareerPage() {
 
   return (
     <div className="min-h-screen bg-white relative overflow-hidden px-6 py-16">
-      {/* Background particles */}
-      <Particles
-        options={{
-          fpsLimit: 60,
-          particles: {
-            color: { value: "#02C8FE" },
-            links: {
-              enable: true,
-              color: "#02C8FE",
-              distance: 140,
-            },
-            move: { enable: true, speed: 1 },
-            number: { value: 40 },
-          },
-        }}
-        className="absolute inset-0 z-0"
-      />
+      <Toaster />
 
       {/* Header */}
       <header className="relative z-10 text-center mb-16">
@@ -89,73 +57,80 @@ export default function CareerPage() {
       </header>
 
       {/* Form */}
-      <motion.section
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="relative z-10 max-w-4xl mx-auto bg-white rounded-3xl shadow-2xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-6"
+
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col items-center gap-3"
       >
         <input
-          name="firstName"
-          value={form.firstName}
-          onChange={handleChange}
+          {...register("firstName", { required: "Ad daxil edin" })}
+          type="text"
           placeholder="Ad"
-          className="input"
+          className="border px-5 py-2 rounded-md w-200"
         />
-        <input
-          name="lastName"
-          value={form.lastName}
-          onChange={handleChange}
-          placeholder="Soyad"
-          className="input"
-        />
-        <input
-          name="phone"
-          value={form.phone}
-          onChange={handleChange}
-          placeholder="Telefon"
-          className="input"
-        />
-        <input
-          name="email"
-          value={form.email}
-          onChange={handleChange}
-          placeholder="Email"
-          className="input"
-        />
-
-        <select
-          name="field"
-          onChange={handleChange}
-          className="input md:col-span-2"
-        >
-          {typeof form.field !== "string" ? (
-            form.field.map((a, i) => (
-              <option key={i} value={a}>
-                {a}
-              </option>
-            ))
-          ) : (
-            <option>{form.field}</option>
-          )}
-        </select>
-
-        <button
-          onClick={handleSubmit}
-          className="md:col-span-2 py-4 cursor-pointer bg-[#02C8FE] text-white rounded-2xl font-semibold text-lg shadow-lg hover:scale-[1.02] transition"
-        >
-          Qeydiyyatdan keç
-        </button>
-
-        {status && (
-          <p
-            className={`md:col-span-2 text-center ${
-              status.type === "error" ? "text-red-600" : "text-green-600"
-            }`}
-          >
-            {status.message}
-          </p>
+        {errors.firstName && (
+          <ErrorMessage message={errors.firstName.message} />
         )}
-      </motion.section>
+        <input
+          {...register("lastName", { required: "Soyad daxil edin" })}
+          type="text"
+          placeholder="Soyad"
+          className="border px-5 py-2 rounded-md w-200"
+        />
+        {errors.lastName && <ErrorMessage message={errors.lastName.message} />}
+        <input
+          {...register("email", {
+            required: "Email daxil edin",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "email düzgün formatda olmalıdır",
+            },
+          })}
+          type="email"
+          placeholder="Email"
+          className="border px-5 py-2 rounded-md w-200"
+        />
+        {errors.email && <ErrorMessage message={errors.email.message} />}
+        <input
+          {...register("phone", {
+            required: "Nömrə daxil edin",
+            maxLength: {
+              value: 13,
+              message: "Nömrə çox uzun olmaz",
+            },
+          })}
+          type="text"
+          placeholder="Telefon"
+          className="border px-5 py-2 rounded-md w-200"
+        />
+        {errors.phone && <ErrorMessage message={errors.phone.message} />}
+        <Controller
+          name="field"
+          control={control}
+          rules={{ required: "Sahə daxil edin" }}
+          render={({ field }) => {
+            return (
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger className="w-200">
+                  <SelectValue placeholder="Sahənizi seçin" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectLabel>Sahələr</SelectLabel>
+                    <SelectItem value="IT">Web Proqramlaşdırma</SelectItem>
+                    <SelectItem value="Design">Dizayn</SelectItem>
+                    <SelectItem value="AI">Reqemsal Marketing</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            );
+          }}
+        />
+        {errors.field && <ErrorMessage message={errors.field.message} />}
+        <button type="submit">
+          <LiquidButtonDemo />
+        </button>
+      </form>
 
       {/* Info Grid */}
       <section className="relative z-10 mt-20 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">

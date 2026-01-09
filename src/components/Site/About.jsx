@@ -67,7 +67,7 @@ export default function AboutUsPage() {
             <h1 className="font-bold text-[clamp(2rem,4vw,3rem)]">
               Haqqımızda
             </h1>
-            <p className="text-gray-700 leading-relaxed max-w-xl mx-auto lg:mx-0">
+            <p className="text-gray-700 text-2xl leading-relaxed max-w-xl mx-auto lg:mx-0">
               INNOHUB gəncləri real texnoloji bacarıqlarla təmin edən,
               innovasiya və startap mədəniyyətini inkişaf etdirən müasir
               mərkəzdir.

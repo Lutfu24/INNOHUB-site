@@ -282,7 +282,7 @@ export default function Header() {
               AZ
             </div>
             <Link
-              to="/elaqe"
+              to="/teachingfield"
               className="hidden md:block bg-linear-to-r from-[#02C8FE] to-[#0098e0] text-white px-7 py-3 rounded-full font-bold hover:shadow-lg transition-all duration-300 transform active:scale-95"
             >
               Müraciət et
